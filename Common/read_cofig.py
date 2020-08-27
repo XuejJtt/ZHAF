@@ -11,6 +11,7 @@
 import yaml
 # import configparser
 from Common import dir_config
+import sys
 
 
 class Read_Config:
@@ -22,11 +23,18 @@ class Read_Config:
 
     #读取yaml文件
     def read_yaml(self):
-        newpath = self.path+'\\'+self.file
-        # print(newpath)
-        fs = open(newpath,'rb')
-        datas = yaml.full_load(fs)
-        return datas[0]
+        if sys.platform == 'win32':
+            newpath = self.path+'\\'+self.file
+            # print(newpath)
+            fs = open(newpath,'rb')
+            datas = yaml.full_load(fs)
+            return datas[0]
+        else:
+            newpath = self.path + '/' + self.file
+            # print(newpath)
+            fs = open(newpath, 'rb')
+            datas = yaml.full_load(fs)
+            return datas[0]
 
     #读取普通配置文件
     def read_config(self,file_path,section,option):

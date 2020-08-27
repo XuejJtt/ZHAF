@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 import os
+import sys
 
 '''
 定义框架层级的相对目录位置
@@ -20,9 +21,15 @@ htmltestreport_dir = os.path.join(base_dir,'HtmlTestReport')
 
 logs_dir = os.path.join(base_dir,'Logs')
 
-processlog_dir = os.path.join(base_dir,'logs\\processlog')
+if sys.platform == "win32":
+    processlog_dir = os.path.join(base_dir,'logs\\processlog')
+else:
+    processlog_dir = os.path.join(base_dir,'logs/processlog')
 
-resultlog_dir = os.path.join(base_dir,'logs\\resultlog')
+if sys.platform =='win32':
+    resultlog_dir = os.path.join(base_dir,'logs\\resultlog')
+else:
+    resultlog_dir = os.path.join(base_dir, 'logs/resultlog')
 
 screenshots_dir = os.path.join(base_dir,'ScreenShots')
 
