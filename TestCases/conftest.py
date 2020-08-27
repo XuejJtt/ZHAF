@@ -65,16 +65,16 @@ def pytest_runtest_makereport(item):
     report = outcome.get_result()
     extra = getattr(report, 'extra', [])
     # 如果你生成的是web ui自动化测试，请把下面的代码注释打开，否则无法生成错误截图
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.skipped and xfail) or (report.failed and not xfail):  # 失败截图
-            file_name = report.nodeid.replace("::", "_") + ".png"
-            screen_img = capture_screenshot()
-            if file_name:
-                html = '<div><img src="data:image/png;base64,%s" alt="screenshot" style="width:600px;height:300px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % screen_img
-                extra.append(pytest_html.extras.html(html))
-        report.extra = extra
+    # if report.when == 'call' or report.when == "setup":
+    #     xfail = hasattr(report, 'wasxfail')
+    #     if (report.skipped and xfail) or (report.failed and not xfail):  # 失败截图
+    #         file_name = report.nodeid.replace("::", "_") + ".png"
+    #         screen_img = capture_screenshot()
+    #         if file_name:
+    #             html = '<div><img src="data:image/png;base64,%s" alt="screenshot" style="width:600px;height:300px;" ' \
+    #                    'onclick="window.open(this.src)" align="right"/></div>' % screen_img
+    #             extra.append(pytest_html.extras.html(html))
+    #     report.extra = extra
     extra.append(pytest_html.extras.text('some string', name='Different title'))
     report.description = str(item.function.__doc__)
     # report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")  # 解决乱码
@@ -108,3 +108,7 @@ def pytest_html_results_table_header(cells):
 def pytest_html_results_table_row(report, cells):
     cells.insert(1, html.td(report.description))
     cells.pop(-1)  # 删除link列
+
+
+if __name__ == '__main__':
+    print(dir_config.config_dir+'/chromedriver.exe')
