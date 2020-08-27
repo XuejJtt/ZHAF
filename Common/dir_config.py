@@ -24,12 +24,12 @@ logs_dir = os.path.join(base_dir,'Logs')
 if sys.platform == "win32":
     processlog_dir = os.path.join(base_dir,'logs\\processlog')
 else:
-    processlog_dir = os.path.join(base_dir,'logs/processlog')
+    processlog_dir = os.path.join(base_dir,'Logs/processlog')
 
 if sys.platform =='win32':
     resultlog_dir = os.path.join(base_dir,'logs\\resultlog')
 else:
-    resultlog_dir = os.path.join(base_dir, 'logs/resultlog')
+    resultlog_dir = os.path.join(base_dir, 'Logs/resultlog')
 
 screenshots_dir = os.path.join(base_dir,'ScreenShots')
 
