@@ -13,6 +13,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from Common import dir_config,read_cofig
+import sys
 
 
 
@@ -50,11 +51,17 @@ class sendmail():
 
         #邮件附件_html报告
         part = MIMEApplication(open(self.file,'rb').read())
-        part.add_header('Content-Disposition','attachment',filename=self.file.split('\\')[-1])
+        if sys.platform == 'win32':
+            part.add_header('Content-Disposition','attachment',filename=self.file.split('\\')[-1])
+        else:
+            part.add_header('Content-Disposition', 'attachment', filename=self.file.split('/')[-1])
         msg.attach(part)
 
         #邮件附件_html报告样式CSS
-        old = self.file.split('\\')[-1]
+        if sys.platform == 'win32':
+            old = self.file.split('\\')[-1]
+        else:
+            old = self.file.split('/')[-1]
         new_style_path = self.file.replace(old,self.style_path)
         part = MIMEApplication(open(new_style_path, 'rb').read())
         part.add_header('Content-Disposition', 'attachment',filename='style.css')
