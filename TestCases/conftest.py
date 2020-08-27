@@ -37,6 +37,7 @@ def init_web():
         options.add_argument('--headless')
         options.add_argument('--isable-gpu')
         options.add_argument('--no-sandbox')
+        #chromedriver放在了ubuntun中绝对路径下面
         driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver',options=options)
     driver.maximize_window()
     driver.get(datas['url'])
