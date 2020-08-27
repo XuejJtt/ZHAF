@@ -33,7 +33,7 @@ def init_web():
     if sys.platform =='win32':
         driver = webdriver.Chrome()
     else:
-        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver.exe')
+        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver')
     driver.maximize_window()
     driver.get(datas['url'])
     yield driver
@@ -48,7 +48,7 @@ def login_web():
     if sys.platform =='win32':
         driver = webdriver.Chrome()
     else:
-        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver.exe')
+        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver')
     driver.maximize_window()
     driver.get(datas['url'])
     login(driver).login_system(datas['account'],datas['pwd'])
