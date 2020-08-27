@@ -33,7 +33,11 @@ def init_web():
     if sys.platform =='win32':
         driver = webdriver.Chrome()
     else:
-        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver')
+        options = webdriver.ChromeOptions()
+        options.add_argument('–headless')
+        options.add_argument('–disable - gpu')
+        options.add_argument('–no - sandbox')
+        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver',chrome_options=options)
     driver.maximize_window()
     driver.get(datas['url'])
     yield driver
@@ -48,7 +52,11 @@ def login_web():
     if sys.platform =='win32':
         driver = webdriver.Chrome()
     else:
-        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver')
+        options = webdriver.ChromeOptions()
+        options.add_argument('–headless')
+        options.add_argument('–disable - gpu')
+        options.add_argument('–no - sandbox')
+        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver', chrome_options=options)
     driver.maximize_window()
     driver.get(datas['url'])
     login(driver).login_system(datas['account'],datas['pwd'])
