@@ -11,6 +11,7 @@ from PageObjects.登录页面 import login
 from Common import dir_config
 from Common.read_cofig import Read_Config as R
 from py._xmlgen import html
+import sys
 
 
 
@@ -29,7 +30,10 @@ driver = None
 @pytest.fixture()
 def init_web():
     global driver
-    driver = webdriver.Chrome()
+    if sys.platform =='win32':
+        driver = webdriver.Chrome()
+    else:
+        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver.exe')
     driver.maximize_window()
     driver.get(datas['url'])
     yield driver
@@ -41,7 +45,10 @@ def init_web():
 @pytest.fixture()
 def login_web():
     global driver
-    driver = webdriver.Chrome()
+    if sys.platform =='win32':
+        driver = webdriver.Chrome()
+    else:
+        driver = webdriver.Chrome(dir_config.config_dir+'/chromedriver.exe')
     driver.maximize_window()
     driver.get(datas['url'])
     login(driver).login_system(datas['account'],datas['pwd'])
