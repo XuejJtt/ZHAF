@@ -39,4 +39,4 @@ if __name__ == '__main__':
     else:
          pytest.main(["-q", "TestCases/登录测试", "--html=" + htmlpath])
     #发送测试报告邮件
-    S(mes['from'],mes['pwd'],mes['to'],htmlpath).send()
+    # S(mes['from'],mes['pwd'],mes['to'],htmlpath).send()

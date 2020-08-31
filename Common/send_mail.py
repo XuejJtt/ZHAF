@@ -71,13 +71,11 @@ class sendmail():
         host ='smtphz.qiye.163.com' if self.type =='163' else 'smtp.qq.com'
         try:
             server = smtplib.SMTP_SSL(host,994,timeout=10)
+            server.login(self.email_from, self.pwd)
+            server.sendmail(self.email_from, self.email_to, msg.as_bytes())
+            server.close()
         except Exception as e:
             print('连接失败',e)
-
-        server.login(self.email_from,self.pwd)
-        server.sendmail(self.email_from,self.email_to,msg.as_bytes())
-        server.close()
-
 
 
 if __name__ == '__main__':
