@@ -9,6 +9,7 @@
 入口函数，pytest执行的统一入口
 
 '''
+
 import pytest
 from Common.dir_config import *
 from Common.read_cofig import Read_Config as R
@@ -39,4 +40,4 @@ if __name__ == '__main__':
     else:
          pytest.main(["-q", "TestCases/登录测试", "--html=" + htmlpath])
     #发送测试报告邮件
-    # S(mes['from'],mes['pwd'],mes['to'],htmlpath).send()
+    S(mes['from'],mes['pwd'],mes['to'],htmlpath).send()
