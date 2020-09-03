@@ -7,7 +7,6 @@
 from Common.BasePage import BasePage
 
 
-
 class login(BasePage):
     account='//input[@placeholder="输入用户名"]'
     pwd='//input[@placeholder="输入密码"]'
