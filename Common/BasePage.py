@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -68,6 +69,23 @@ class BasePage:
         except InvalidSelectorException as e:
             P_log.error("元素定位表达式：{0}  不正确，请修正".format(locator))
 
+        # 模拟鼠标悬停操作
+    def move_mouse(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible"):
+        if type == "visible":
+            P_log.info("开始等待元素在当前页面可见。")
+            self.wait_eleVisible(locator, by, wait_times)
+        else:
+            P_log.info("开始等待元素在当前页面存在。")
+            self.wait_eleExists(locator, by, wait_times)
+
+        try:
+            P_log.info("=====鼠标悬停操作======")
+            em = self.find_element(locator, by)
+            ActionChains(self.driver).move_to_element(em).perform()
+
+        except Exception as e:
+            R_log.error("鼠标悬停操作失败,失败原因{0}".format(e))
+            raise e
         # 查找元素 - 一个元素
 
     def find_element(self, locator, by=By.XPATH, wait_times=40, type="visible"):
@@ -149,6 +167,15 @@ class BasePage:
             self.save_picture("点击失败")
             raise e
 
+    # 元素组点击操作
+    def clicks(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible", index=0):
+        P_log.info("=====执行点击事件======")
+        eles = self.find_elements(locator, by,wait_times, type)[index]
+        try:
+            eles.click()
+        except Exception as e:
+            P_log.error("元素点击失败")
+            raise e
     #输入文字
     def input_text(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         '''
