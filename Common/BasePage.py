@@ -262,6 +262,12 @@ class BasePage:
             self.driver.save_screenshot(pic_path)
             P_log.info("已截取当前页面，文件路径：{0}".format(pic_path))
 
+    def switch_window(self):
+        pass
+
+    def switch_iframe(self):
+        pass
+
 
 
 
