@@ -179,12 +179,12 @@ class BasePage:
     #输入文字
     def input_text(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         '''
-        :param locator:
-        :param text:
-        :param by:
-        :param wait_times:
-        :param type:
-        :param scroll:
+        :param locator:元素定位
+        :param text:输入文本
+        :param by:定位方法
+        :param wait_times:等待时长
+        :param type:等待元素类型
+        :param scroll:是否滚动至元素可见
         :return:
         '''
         P_log.info("=====执行输入操作======\n输入的数据为：{0}".format(text))
@@ -198,10 +198,37 @@ class BasePage:
             self.save_picture("输入文本失败")
             raise e
 
+    #多元素选择输入
+    def input_text_m(self,locator,text,by=By.XPATH,wait_times=40,type="visible",scroll=False,index=0):
+        P_log.info("=====执行输入操作======\n输入的数据为：{0}".format(text))
+        ele = self.find_elements(locator, by, wait_times, type)[index]
+        if scroll is True:
+            self.scroll_intoView(ele)
+        try:
+            ele.send_keys(text)
+        except Exception as e:
+            P_log.error("输入操作失败。")
+            self.save_picture("输入文本失败")
+            raise e
+
+
     #获取对象的文字
     def get_text(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         P_log.info("=====获取元素的文本内容======")
         ele = self.find_element(locator, by, wait_times, type)
+        if scroll is True:
+            self.scroll_intoView(ele)
+        try:
+            return ele.text
+        except Exception as e:
+            P_log.error("获取元素的文本内容失败：")
+            self.save_picture("获取元素文本信息失败")
+            raise e
+
+    #多元素获取对象的文字
+    def get_text_m(self,locator,by=By.XPATH, wait_times=40, type="visible",scroll=False,index=0):
+        P_log.info("=====获取元素的文本内容======")
+        ele = self.find_elements(locator, by, wait_times, type)[index]
         if scroll is True:
             self.scroll_intoView(ele)
         try:
@@ -224,6 +251,8 @@ class BasePage:
             P_log.error("获取属性值失败：")
             self.save_picture("取元素属性失败")
             raise e
+
+
 
     # 处理alert弹出框
     def alert_handler(self, action="accept"):
