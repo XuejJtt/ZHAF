@@ -30,13 +30,13 @@ else:
 
 if __name__ == '__main__':
     '''全部运行'''
-    # pytest.main(["-q","--html="+htmlpath])
+    pytest.main(["-q","--html="+htmlpath])
     '''指定文件夹运行'''
-    if sys.platform == 'win32':
-        pytest.main(["-q", "TestCases\\登录测试", "--html=" + htmlpath])
-        '''指定标记运行,如果执行具体的py文件需要写上绝对路径,可以配合上面的执行策略一起使用'''
-        # pytest.main(["-q","TestCases\\登录测试\\test_login.py","-m=smoke","--html="+htmlpath])
-    else:
-        pytest.main(["-q", "TestCases/登录测试", "--html=" + htmlpath])
+    # if sys.platform == 'win32':
+    #     pytest.main(["-q", "TestCases\\登录测试", "--html=" + htmlpath])
+    #     '''指定标记运行,如果执行具体的py文件需要写上绝对路径,可以配合上面的执行策略一起使用'''
+    #     # pytest.main(["-q","TestCases\\登录测试\\test_login.py","-m=smoke","--html="+htmlpath])
+    # else:
+    #     pytest.main(["-q", "TestCases/登录测试", "--html=" + htmlpath])
     # 发送测试报告邮件
     # S(mes['from'],mes['pwd'],mes['to'],htmlpath,type='qq').send()
