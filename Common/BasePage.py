@@ -17,23 +17,23 @@ import time
 import os
 import sys
 
-
-#定义resultlog和processlog
+# 定义resultlog和processlog
 P_log = Log(processlog_dir)
 R_log = Log(resultlog_dir)
 
+
 class BasePage:
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.driver = driver
         self.driver.maximize_window()
 
-    #等待元素可见
-    def wait_eleVisible(self,loctor,by=By.XPATH,wait_times=20):
+    # 等待元素可见
+    def wait_eleVisible(self, loctor, by=By.XPATH, wait_times=20):
         if by not in By.__dict__.values():
             P_log.error("定位类型[ {0} ]不在支持的定位类型范围内".format(by))
             raise InvalidSelectorException
-        #当前运行时间
-        t1 =time.time()
+        # 当前运行时间
+        t1 = time.time()
         try:
             WebDriverWait(self.driver, wait_times, 1).until(EC.visibility_of_element_located((by, loctor)))
             t2 = time.time()
@@ -176,7 +176,7 @@ class BasePage:
         except Exception as e:
             P_log.error("元素点击失败")
             raise e
-    #输入文字
+    # 输入文字
     def input_text(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         '''
         :param locator:元素定位
@@ -212,7 +212,7 @@ class BasePage:
             raise e
 
 
-    #获取对象的文字
+    # 获取对象的文字
     def get_text(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         P_log.info("=====获取元素的文本内容======")
         ele = self.find_element(locator, by, wait_times, type)
@@ -267,7 +267,7 @@ class BasePage:
         return message
 
     # 截图函数
-    def save_picture(self,doc):
+    def save_picture(self, doc, flag=True):
         '''
         :param doc: 截图的名称
         :return:
@@ -277,7 +277,7 @@ class BasePage:
             filepath = screenshots_dir + file_dir
             if not os.path.exists(filepath):
                 os.makedirs(filepath)
-            pic_path = filepath+"\\{0}-{1}.png".format(doc,time.strftime('%Y-%m-%d_%H_%M_%S'))
+            pic_path = filepath + "\\{0}-{1}.png".format(doc, time.strftime('%Y-%m-%d_%H_%M_%S'))
             self.driver.save_screenshot(pic_path)
             P_log.info("已截取当前页面，文件路径：{0}".format(pic_path))
         else:
