@@ -168,13 +168,16 @@ class BasePage:
             raise e
 
     # 元素组点击操作
-    def clicks(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible", index=0):
+    def clicks(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible", index=0,scroll=False):
         P_log.info("=====执行点击事件======")
         eles = self.find_elements(locator, by,wait_times, type)[index]
+        if scroll is True:
+            self.scroll_intoView(eles)
         try:
             eles.click()
         except Exception as e:
             P_log.error("元素点击失败")
+            self.save_picture("点击失败")
             raise e
     #输入文字
     def input_text(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False):

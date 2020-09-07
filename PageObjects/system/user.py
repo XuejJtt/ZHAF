@@ -37,7 +37,8 @@ class User(BasePage):
     operate = 'table-button'  # 操作按钮
     state = 'ant-switch-inner'  # 账号状态
     delete = '.ant-modal-footer .ant-btn-primary'  # 删除确认
-    list = 'ant-table-row ant-table-row-level-0'  # 列表数据，通过判断列表数据是否存在，来确认是否删除成功
+    # list = 'ant-table-row ant-table-row-level-0'  # 列表数据，通过判断列表数据是否存在，来确认是否删除成功
+    emptylist='ant-empty-description'#空列表，表示删除成功
 
     def add_user(self):
         self.click(self.newuser, By.CLASS_NAME)  # 点击新增用户按钮
@@ -64,8 +65,10 @@ class User(BasePage):
         em = self.find_element(self.search,By.CSS_SELECTOR)
         em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
         self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
+        sleep(2)
         # self.find_elements(self.operate, By.CLASS_NAME)[0].click()  # 点击编辑按钮
         self.clicks(self.operate, By.CLASS_NAME)# 点击编辑按钮
+        sleep(2)
         self.click(self.time,By.CSS_SELECTOR)  # 点击有效时间选择框
         em = self.find_element(self.time_input, By.XPATH)
         em.send_keys(Keys.CONTROL, 'a')
@@ -78,14 +81,17 @@ class User(BasePage):
         em = self.find_element(self.search,By.CSS_SELECTOR)
         em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
         self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
+        sleep(2)
         self.click(self.state, By.CLASS_NAME)  # 点击 冻结
 
     def del_user(self):
         em = self.find_element(self.search,By.CSS_SELECTOR)
         em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
         self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
-        self.find_elements(self.operate, By.CLASS_NAME).pop().click()  # 点击删除按钮
-        self.click(self.delete)
+        # self.find_elements(self.operate, By.CLASS_NAME).pop().click()  # 点击删除按钮
+        sleep(2)
+        self.clicks(self.operate,By.CLASS_NAME,10,'visible',2)# 点击删除按钮
+        self.click(self.delete,By.CSS_SELECTOR)
 
 
     def get_user(self, num):  # 获取用户信息
@@ -95,16 +101,11 @@ class User(BasePage):
         sleep(3)
         els = self.find_elements(self.result,By.CSS_SELECTOR)
         return els[num].text  # 获取查询结果中(2:用户名;4:所属组织;5:用户角色;6:有效期限；7：账号状态)字段文本
-    #
-    # def get_user_null(self):  # 确认删除成功,无用户信息
-    #     em = self.find_element(self.search)
-    #     em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
-    #     self.send_keys(self.search, self.s)  # 输入手机号
-    #     find = 'True'
-    #     sleep(2)
-    #     try:
-    #         self.find_element(self.list, By.CLASS_NAME)
-    #         return find
-    #     except NoSuchElementException as e:
-    #         # 发生了NoSuchElementException异常，说明页面中未找到该元素，返回False
-    #         return 'False'
+
+    def get_user_null(self):  # 确认删除成功,无用户信息
+        em = self.find_element(self.search,By.CSS_SELECTOR)
+        em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
+        self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
+        sleep(2)
+        return self.get_text(self.emptylist,By.CLASS_NAME)#空列表时，为字段文本为No Data
+
