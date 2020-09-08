@@ -168,7 +168,7 @@ class BasePage:
             raise e
 
     # 元素组点击操作
-    def clicks(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible", index=0,scroll=False):
+    def clicks(self, locator, by=By.XPATH, wait_times=40, type="visible", index=0,scroll=False):
         P_log.info("=====执行点击事件======")
         eles = self.find_elements(locator, by,wait_times, type)[index]
         if scroll is True:

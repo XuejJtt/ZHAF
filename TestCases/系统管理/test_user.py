@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+# @Author : Zhuzj
+# @file : test_user.py
+# @time : 2020/9/8 16:04
+# @Software :PyCharm
+
 import pytest
 from Common.BasePage import BasePage
 from PageObjects.登录页面 import login

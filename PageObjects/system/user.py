@@ -1,17 +1,18 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+# @Author : Zhuzj
+# @file : user.py
+# @time : 2020/9/8 16:04
+# @Software :PyCharm
+
 from time import sleep
-import pytest
 
-from selenium.common.exceptions import NoSuchElementException
-
-from PageObjects.登录页面 import *
 import random
 from selenium.webdriver.common.keys import Keys
 from Common.BasePage import BasePage
-# from ZHAF.PageObjects.firstPage import firstPage
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 import TestDatas.newuser as News
-# import logging
+
 
 
 class User(BasePage):
@@ -37,7 +38,6 @@ class User(BasePage):
     operate = 'table-button'  # 操作按钮
     state = 'ant-switch-inner'  # 账号状态
     delete = '.ant-modal-footer .ant-btn-primary'  # 删除确认
-    # list = 'ant-table-row ant-table-row-level-0'  # 列表数据，通过判断列表数据是否存在，来确认是否删除成功
     emptylist='ant-empty-description'#空列表，表示删除成功
 
     def add_user(self):
@@ -49,16 +49,13 @@ class User(BasePage):
         self.input_text(self.pwdtwo, News.newuser['pwd'],By.CSS_SELECTOR)  # 确认密码
         self.click(self.depart, By.CLASS_NAME)  # 点击所属组织
         self.click(self.depart_list, By.CLASS_NAME)  # 点击所属组织下拉框
-        # self.find_elements(self.depart_checkbox, By.CLASS_NAME).pop(-1).click()  # 所属组织--选择下拉框中最后一个
         self.clicks(self.depart_checkbox,By.CLASS_NAME)# 所属组织--选择下拉框中最后一个
         self.click(self.role,By.CSS_SELECTOR)  # 点击所属角色框
-        # self.find_elements(self.role_checkbox, By.CLASS_NAME).pop().click()  # 在所属角色下拉框中选择最后一个
         self.clicks(self.role_checkbox, By.CLASS_NAME)# 在所属角色下拉框中选择最后一个
         self.click(self.time,By.CSS_SELECTOR)  # 点击有效时间选择框
         self.input_text(self.time_input, News.newuser['time'], By.XPATH)  # 输入一个有效时间
         self.click(self.city,By.CSS_SELECTOR)# 点击所在城市输入框
         self.click(self.confirm,By.CSS_SELECTOR)
-        # logging.info("用户新增成功")
         print(self.s)
 
     def modify_user(self):
@@ -66,7 +63,6 @@ class User(BasePage):
         em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
         self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
         sleep(2)
-        # self.find_elements(self.operate, By.CLASS_NAME)[0].click()  # 点击编辑按钮
         self.clicks(self.operate, By.CLASS_NAME)# 点击编辑按钮
         sleep(2)
         self.click(self.time,By.CSS_SELECTOR)  # 点击有效时间选择框
@@ -75,7 +71,6 @@ class User(BasePage):
         self.input_text(self.time_input, '2022-12-18', By.XPATH)  # 输入一个有效时间
         self.click(self.city,By.CSS_SELECTOR)# 点击所在城市输入框
         self.click(self.confirm,By.CSS_SELECTOR)
-        # logging.info("用户激活成功")
 
     def freeze_user(self):
         em = self.find_element(self.search,By.CSS_SELECTOR)
@@ -88,7 +83,6 @@ class User(BasePage):
         em = self.find_element(self.search,By.CSS_SELECTOR)
         em.send_keys(Keys.CONTROL, 'a')  # 模拟键盘操作，输入ctrl+A全选
         self.input_text(self.search, self.s,By.CSS_SELECTOR)  # 输入手机号
-        # self.find_elements(self.operate, By.CLASS_NAME).pop().click()  # 点击删除按钮
         sleep(2)
         self.clicks(self.operate,By.CLASS_NAME,10,'visible',2)# 点击删除按钮
         self.click(self.delete,By.CSS_SELECTOR)
