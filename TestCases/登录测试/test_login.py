@@ -6,11 +6,11 @@
 # @Software: PyCharm
 
 import pytest
-from PageObjects.登录页面 import login
-from PageObjects.首页 import First_Page
+from PageObjects.login.login import login
+from PageObjects.index.first_page import First_Page
 from Common.log import Log
 from Common import dir_config
-import TestDatas.login_test_datas as LTD
+import TestDatas.公共数据.login_test_datas as LTD
 
 
 #定义resultlog和processlog

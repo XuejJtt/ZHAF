@@ -7,11 +7,10 @@
 
 from time import sleep
 
-import random
 from selenium.webdriver.common.keys import Keys
 from Common.BasePage import BasePage
 from selenium.webdriver.common.by import By
-import TestDatas.newuser as News
+import TestDatas.系统管理.newuser as News
 
 
 

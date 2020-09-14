@@ -5,8 +5,8 @@
 # @time : 2020/9/8 16:04
 # @Software :PyCharm
 
-from PageObjects.首页 import *
-import TestDatas.newplace as place_date
+from PageObjects.index.first_page import *
+import TestDatas.系统管理.newplace as place_date
 
 
 class Area_managerment(BasePage):

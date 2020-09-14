@@ -38,7 +38,7 @@ class BasePage:
             WebDriverWait(self.driver, wait_times, 1).until(EC.visibility_of_element_located((by, loctor)))
             t2 = time.time()
             # 结束时间 - 两者之差就是真正的等待时间
-            P_log.info("等待结束，等待开始时间：{0}，结束等待时间：{1}等待时间长为: {2}".format(t1, t2, t2 - t1))
+            P_log.info("等待时间长为:{0}".format(t2 - t1))
         except TimeoutException as e:
             P_log.error("等待元素超时.截取当前页面。")
             self.save_picture("等待元素失败")
@@ -60,7 +60,7 @@ class BasePage:
             WebDriverWait(self.driver, wait_times, 1).until(EC.presence_of_element_located((by, locator)))
             t2 = time.time()
             # 结束时间 - 两者之差就是真正的等待时间
-            P_log.info("等待结束。等待开始时间：{0}，结束等待时间：{1}等待时间长为: {2}".format(t1, t2, t2 - t1))
+            P_log.info("等待时间长为:{0}".format(t2 - t1))
         except TimeoutException as e:
             P_log.error("等待元素存在超时.截取当前页面。")
             self.save_picture('等待元素存在失败')
@@ -156,15 +156,15 @@ class BasePage:
 
     # 元素的点击操作
     def double_click(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
-        P_log.info("=====执行点击事件======")
+        P_log.info("=====执行双击事件======")
         ele = self.find_element(locator, by, wait_times, type)
         if scroll is True:
             self.scroll_intoView(ele)
         try:
             ele.double_click()
         except Exception as e:
-            P_log.error("点击操作失败。")
-            self.save_picture("点击失败")
+            P_log.error("双击操作失败。")
+            self.save_picture("双击失败")
             raise e
 
     # 元素组点击操作
