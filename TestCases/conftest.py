@@ -7,7 +7,7 @@
 
 import pytest
 from selenium import webdriver
-from PageObjects.登录页面 import login
+from PageObjects.login.login import login
 from Common import dir_config
 from Common.read_cofig import Read_Config as R
 from py._xmlgen import html

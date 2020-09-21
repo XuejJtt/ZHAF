@@ -6,7 +6,6 @@
 # @Software :PyCharm
 
 import pytest
-from PageObjects.首页 import *
 from PageObjects.system.place import *
 
 
