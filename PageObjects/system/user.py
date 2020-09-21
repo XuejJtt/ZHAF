@@ -11,6 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from Common.BasePage import BasePage
 from selenium.webdriver.common.by import By
 import TestDatas.系统管理.newuser as News
+import time
 
 
 
@@ -55,6 +56,7 @@ class User(BasePage):
         self.input_text(self.time_input, News.newuser['time'], By.XPATH)  # 输入一个有效时间
         self.click(self.city,By.CSS_SELECTOR)# 点击所在城市输入框
         self.click(self.confirm,By.CSS_SELECTOR)
+        time.sleep(2)
         print(News.newuser['phone'])
 
 
@@ -71,6 +73,7 @@ class User(BasePage):
         self.input_text(self.time_input, '2022-12-18', By.XPATH)  # 输入一个有效时间
         self.click(self.city,By.CSS_SELECTOR)# 点击所在城市输入框
         self.click(self.confirm,By.CSS_SELECTOR)
+        time.sleep(2)
 
     def freeze_user(self):
         em = self.find_element(self.search,By.CSS_SELECTOR)
@@ -78,6 +81,7 @@ class User(BasePage):
         self.input_text(self.search, News.newuser['phone'],By.CSS_SELECTOR)  # 输入手机号
         sleep(2)
         self.click(self.state, By.CLASS_NAME)  # 点击 冻结
+        time.sleep(2)
 
     def del_user(self):
         em = self.find_element(self.search,By.CSS_SELECTOR)
@@ -86,6 +90,7 @@ class User(BasePage):
         sleep(2)
         self.clicks(self.operate,By.CLASS_NAME,10,'visible',2)# 点击删除按钮
         self.click(self.delete,By.CSS_SELECTOR)
+        time.sleep(2)
 
 
     def get_user(self, num):  # 获取用户信息

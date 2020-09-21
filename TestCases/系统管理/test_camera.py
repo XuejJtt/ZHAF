@@ -6,8 +6,8 @@
 # @Software :PyCharm
 
 from PageObjects.system.camera import *
-from PageObjects.首页 import First_Page
-import TestDatas.newcamera  as LD
+from PageObjects.index.first_page import First_Page
+import TestDatas.系统管理.newcamera  as LD
 import pytest
 
 @pytest.mark.usefixtures("login_web")
