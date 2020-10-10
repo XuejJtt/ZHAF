@@ -98,43 +98,43 @@ class First_Page(BasePage):
         if loc =='资源图库':
             self.move_mouse(self.gallery)
             if loc_s=='人脸图库':
-                pass
+                self.click(self.face)
             elif loc_s=='人体':
-                pass
+                self.click(self.body)
             elif loc_s=='机动车':
-                pass
+                self.click(self.vehicle)
             elif loc_s=='非机动车':
-                pass
+                self.click(self.nonmotor)
         elif loc =='对象图谱':
             self.move_mouse(self.objectMap)
             if loc_s=='人员档案':
-                pass
+                self.click(self.person)
             elif loc_s=='车辆档案':
-                pass
+                self.click(self.map_vehcle)
             elif loc_s=='场所档案':
-                pass
+                self.click(self.place)
             elif loc_s=='设备档案':
-                pass
+                self.click(self.device)
         elif loc =='综合布控':
             self.move_mouse(self.deployment)
             if loc_s=='底库管理':
-                pass
+                self.click(self.library)
             elif loc_s=='布控管理':
-                pass
+                self.click(self.surveillance)
             elif loc_s=='告警历史':
-                pass
+                self.click(self.alarm)
             elif loc_s=='抓获撤销库':
-                pass
+                self.click(self.alarmhandle)
         elif loc =='技战法':
             self.move_mouse(self.technicalTactics)
             if loc_s=='1V1对比':
-                pass
+                self.click(self.versus)
             elif loc_s=='身份鉴别':
-                pass
+                self.click(self.identityAuthentication)
             elif loc_s=='视屏串并':
-                pass
+                self.click(self.videoSeriesParallel)
             elif loc_s=='跨境追踪':
-                pass
+                self.click(self.crossBorderTrack)
 
 
 
