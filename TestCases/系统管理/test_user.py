@@ -28,8 +28,8 @@ class Test_user:
             assert User(login_web).get_user(2) == News.newuser['name']
             R_log.info("******【新增用户】用例执行成功******")
         except Exception as e:
-            R_log.info("【新增用户】用例执行失败")
-            P_log.error("【新增用户】用例失败,失败原因:{0}".format(e))
+            R_log.info("******【新增用户】用例执行失败******")
+            P_log.error("******【新增用户】用例失败,失败原因:{0}******".format(e))
             User(login_web).save_picture('用例异常截图')
             raise e
 
@@ -43,8 +43,8 @@ class Test_user:
             assert User(login_web).get_user(7) == '已激活'
             R_log.info("******【修改用户】用例执行成功******")
         except Exception as e:
-            R_log.info("【修改用户】用例执行失败")
-            P_log.error("【修改用户】用例失败,失败原因:{0}".format(e))
+            R_log.info("******【修改用户】用例执行失败******")
+            P_log.error("******【修改用户】用例失败,失败原因:{0}******".format(e))
             User(login_web).save_picture('用例异常截图')
             raise e
 
@@ -57,8 +57,8 @@ class Test_user:
             assert User(login_web).get_user(7) == '已冻结'
             R_log.info("******【冻结用户】用例执行成功******")
         except Exception as e:
-            R_log.info("【冻结用户】用例执行失败")
-            P_log.error("【冻结用户】用例失败,失败原因:{0}".format(e))
+            R_log.info("******【冻结用户】用例执行失败******")
+            P_log.error("******【冻结用户】用例失败,失败原因:{0}******".format(e))
             login(login_web).save_picture('用例异常截图')
             raise e
 
@@ -72,8 +72,8 @@ class Test_user:
             assert User(login_web).get_user_null() == 'No Data'
             R_log.info('******【删除用户】测试用例执行成功******')
         except Exception as e:
-            R_log.info("【删除用户】用例执行失败")
-            P_log.error("【删除用户】用例失败,失败原因:{0}".format(e))
+            R_log.info("******【删除用户】用例执行失败******")
+            P_log.error("******【删除用户】用例失败,失败原因:{0}******".format(e))
             login(login_web).save_picture('用例异常截图')
             raise e
 
