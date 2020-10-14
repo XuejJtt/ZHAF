@@ -18,13 +18,44 @@ class Test_Place:
         Area_managerment(login_web).new_area()
         try:
             P_log.info("*******开始进行{0}测试用例结果校验*********".format(place_date.newarea['casename']))
-            assert Area_managerment(login_web).get_areainfo()==place_date.newarea['areaname']
+            assert Area_managerment(login_web).get_areainfo(0)[0]==place_date.newarea['areaname']
             R_log.info("******{0}用例执行成功******".format(place_date.newarea['casename']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(place_date.newarea['areaname']))
             P_log.error("{0}用例失败,失败原因:{1}".format(place_date.newarea['casename'],e))
             BasePage(login_web).save_picture('用例异常截图')
             raise e
+
+
+    def test_modify_area(self,login_web):
+        P_log.info("*******开始执行{0}测试用例******".format(place_date.editarea['casename']))
+        First_Page(login_web).manager(5, 'place')
+        Area_managerment(login_web).modify_area()
+        try:
+            P_log.info("*******开始进行{0}测试用例结果校验*********".format(place_date.editarea['casename']))
+            assert  Area_managerment(login_web).get_areainfo(1)[0]==place_date.editarea['areaname']
+            assert Area_managerment(login_web).get_areainfo(1)[1]==place_date.editarea['areadisc']
+            R_log.info("******{0}用例执行成功******".format(place_date.editarea['casename']))
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(place_date.editarea['areaname']))
+            P_log.error("{0}用例失败,失败原因:{1}".format(place_date.editarea['casename'], e))
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
+    def test_delete_area(self,login_web):
+        P_log.info("*******开始执行【删除区域】测试用例******")
+        First_Page(login_web).manager(5, 'place')
+        Area_managerment(login_web).deleteplace(1)
+        try:
+            P_log.info("*******开始执行【删除区域】测试用例结果校验******")
+            assert Area_managerment(login_web).get_infonull(1)=='No Data'
+            R_log.info("******【删除区域】测试用例执行成功******")
+        except Exception as e:
+            R_log.info("【删除区域】测试用例执行失败")
+            P_log.error("【删除区域】测试用例失败,失败原因:{1}",e)
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
 
     @pytest.mark.smoke
     def test_new_place(self,login_web):
@@ -33,11 +64,42 @@ class Test_Place:
         Area_managerment(login_web).new_place()
         try:
            P_log.info("*******开始进行{0}测试用例结果校验*********".format(place_date.newplace['casename']))
-           assert Area_managerment(login_web).get_placeinfo() == place_date.newplace['placename']
+           assert Area_managerment(login_web).get_areainfo(2)[0] == place_date.newplace['placename']
            R_log.info("******{0}用例执行成功******".format(place_date.newplace['casename']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(place_date.newplace['casename']))
             P_log.error("{0}用例失败,失败原因:{1}".format(place_date.newplace['casename'], e))
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
+
+    def test_modify_place(self,login_web):
+        P_log.info("*******开始执行{0}测试用例******".format(place_date.editplace['casename']))
+        First_Page(login_web).manager(5, 'place')
+        Area_managerment(login_web).modify_place()
+        try:
+            P_log.info("*******开始进行{0}测试用例结果校验*********".format(place_date.editplace['casename']))
+            assert Area_managerment(login_web).get_areainfo(3)[0] == place_date.editplace['placename']
+            assert Area_managerment(login_web).get_areainfo(3)[1] == place_date.editplace['placedisc']
+            R_log.info("******{0}用例执行成功******".format(place_date.editplace['casename']))
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(place_date.editplace['casename']))
+            P_log.error("{0}用例失败,失败原因:{1}".format(place_date.editplace['casename'], e))
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
+    def test_delete_place(self,login_web):
+        P_log.info("*******开始执行【删除场所】测试用例******")
+        First_Page(login_web).manager(5, 'place')
+        Area_managerment(login_web).deleteplace(3)
+        try:
+            P_log.info("*******开始执行【删除场所】测试用例结果校验******")
+            assert Area_managerment(login_web).get_infonull(3) == 'No Data'
+            R_log.info("******【删除场所】测试用例执行成功******")
+        except Exception as e:
+            R_log.info("【删除场所】测试用例执行失败")
+            P_log.error("【删除场所】测试用例失败,失败原因:{1}", e)
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
