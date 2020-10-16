@@ -12,7 +12,6 @@ class Camera(BasePage):
     area = '//i[@class="anticon anticon-caret-down ant-tree-switcher-icon"]'  # 左侧组织下拉列表
     node = '//span[@class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-normal"]'  # 下拉列表子节点
     addbt = '//span[text()="新增设备"]/..'  # 新增设备按钮
-    '@[text()="新增设备"]'
     dtype = '//div[@class="device-type-icon"]'  # 设备类型，0： 视频流相机，1： 智能抓拍机， 2： GB实时，3： 1400视图库
     nextbt = '//span[text()="下一步"]/..'  # 下一步按钮
     devicename = '//span/*[@placeholder = "请输入设备名称"]'  # 设备名称
