@@ -4,7 +4,7 @@
 # @Author  : Xuej
 # @File    : first_page.py
 # @Software: PyCharm
-from Common.BasePage import BasePage
+from Common.BasePage import *
 from Common.log import Log
 from Common.dir_config import *
 from selenium.webdriver.common.by import By
@@ -65,11 +65,72 @@ class First_Page(BasePage):
     videoSeriesParallel = '//li[contains(text(),"视频串并")]'
     # 跨境追踪
     crossBorderTrack = '//li[contains(text(),"跨镜追踪")]'
+    # 资源总数
+    sum_resources = '//span[contains(text(),"资源总数")]/following-sibling::span'
+    # 非机动车数量
+    sum_novehcile = '//span[contains(text(),"非机动车")]/following-sibling::span'
+    # 机动车数量
+    sum_vehcile = '//span[contains(text(),"机动车")]/following-sibling::span'
+    # 人脸数量
+    sum_face = '//span[contains(text(),"人脸")]/following-sibling::span'
+    # 人体数量
+    sum_body = '//span[contains(text(),"人体")]/following-sibling::span'
+    # 7天标签
+    resource_7 = '(//span[contains(text(),"7天")])[1]'
+    capture_7 = '(//span[contains(text(),"7天")])[2]'
+    alarm_7 = '(//span[contains(text(),"7天")])[3]'
+    point_7 = '(//span[contains(text(),"7天")])[4]'
+    devices_statistics = '(//span[contains(text(),"统计")])[1]'
+    devices_online = '//span[contains(text(),"在线")]'
+    二十四小时 = '//span[contains(text(),"24小时")]'
+    # 累计标签
+    resource_sum = '(//span[contains(text(),"累计")])[1]'
+    alarm_sum = '(//span[contains(text(),"累计")])[2]'
+    point_sum = '(//span[contains(text(),"累计")])[3]'
+    # 资源统计7天下的对象
+    face_number = '//div[@class ="face-number"]'
+    body_number = '//span[@class ="body-number"]'
+    car_number = '//span[@class ="car-number"]'
+    uncar_number = '//span[@class="uncar-number"]'
+
+    # 资源统计累计下的对象
+
+    # 设备总览下的对象
+    allnumber = '//div[@class="allNumber"]'
+    视频流相机总数 = '(//span[@class="page-equipment-body-count"])[1]'
+    智能抓拍相机总数 = '(//span[@class="page-equipment-body-count"])[2]'
+    GB28181_sum = '(//span[@class="page-equipment-body-count"])[3]'
+    视图库总数 = '(//span[@class="page-equipment-body-count"])[4]'
+    top_number = '//div[@class="top-num"]'
+    视频流相机在线 = '(//span[@class="page-equipment-body-count"])[5]'
+    智能抓拍机相机在线 ='(//span[@class="page-equipment-body-count"])[6]'
+    GB28181_online = '(//span[@class="page-equipment-body-count"])[7]'
+    视图库在线 = '(//span[@class="page-equipment-body-count"])[8]'
+
+    # 档案统计下的对象
+    人员档案 = '(//div[@class="archives-number"])[1]'
+    场所档案 = '(//div[@class="archives-number"])[3]'
+    车辆档案 = '(//div[@class="archives-number"])[2]'
+    设备档案 = '(//div[@class="archives-number"])[4]'
+
+    # 布控统计下的对象
+    人脸布控 = '(//span[@class="face-legend"])[1]//following-sibling::span'
+    人体布控 = '(//span[@class="body-legend"])[1]//following-sibling::span'
+    机动车布控 = '(//span[@class="vehicle-legend"])[1]//following-sibling::span'
+
+    # 告警统计下的对象
+    告警统计7天人脸 = '(//span[@class="face-legend"])[2]//following-sibling::span'
+    告警统计7天人体 = '(//span[@class="body-legend"])[2]//following-sibling::span'
+    告警统计7天机动车 = '(//span[@class="vehicle-legend"])[2]//following-sibling::span'
+    告警统计累计人脸 = '(//span[@class="face-legend"])[3]//following-sibling::span'
+    告警统计累计人体 = '(//span[@class="body-legend"])[3]//following-sibling::span'
+    告警统计累计机动车 = '(//span[@class="vehicle-legend"])[3]//following-sibling::span'
 
     # 获取登录后的用户名
     def get_login_name(self):
         return self.get_text(self.username)
 
+    # 点击进入系统管理下的子菜单
     def manager(self,num, t):
         P_log.info('点击进入系统管理下的子菜单')
         self.move_mouse(self.mager)  # 鼠标悬停在管理上
@@ -79,6 +140,54 @@ class First_Page(BasePage):
             self.driver.switch_to.window(handle)  # 得到该窗口的标题栏字符串
             if t in self.driver.title:  # 判断当前窗口是否包含该字符串，如果是，跳出循环
                 break
+    # 获取资源总数数值
+    def get_resouce_num(self,loc):
+        if loc =='资源总数':
+            return self.get_text(self.sum_resources)
+        elif loc =='人脸':
+            return self.get_text(self.sum_face)
+        elif loc =='人体':
+            return self.get_text(self.sum_body)
+        elif loc =='机动车':
+            return self.get_text(self.sum_vehcile)
+        elif loc =='非机动车':
+            return self.get_text(self.sum_novehcile)
+
+    # 切换标签
+    def select_laber(self,F,S):
+        list_1=['资源统计','设备总览','抓拍趋势','告警统计','点位告警']
+        list_2=['7天','累计','在线','统计','24小时']
+        if F not in list_1:
+            P_log.error('一级菜单不在支持列表中')
+            raise ValueError('一级菜单不支持')
+        if S not in list_2:
+            P_log.error('二级菜单不在支持列表中')
+            raise ValueError('二级菜单不支持')
+        if F =='资源统计':
+            if S =='7天':
+                self.click(self.resource_7)
+            elif S =='累计':
+                self.click(self.resource_sum)
+        if F =='设备总览':
+            if S =='统计':
+                self.click(self.devices_statistics)
+            elif S =='在线':
+                self.click(self.devices_online)
+        if F =='抓拍趋势':
+            if S =='7天':
+                self.click(self.capture_7)
+            elif S =='24小时':
+                self.click(self.二十四小时)
+        if F =='告警统计':
+            if S =='7天':
+                self.click(self.alarm_7)
+            elif S =='累计':
+                self.click(self.alarm_sum)
+        if F =='点位告警':
+            if S =='7天':
+                self.click(self.point_7)
+            elif S =='累计':
+                self.click(self.point_sum)
 
     # 选择主菜单,针对解析管理，边缘智能，单功能的菜单
     def select_item(self,loc):
@@ -90,7 +199,6 @@ class First_Page(BasePage):
             self.click(self.edgeIntelligence)
         elif loc =='解析管理':
             self.click(self.analytical)
-
 
     # 选择二级菜单
     def select_s_item(self,loc,loc_s):

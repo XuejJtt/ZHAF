@@ -4,7 +4,7 @@
 # @Author  : Xuej
 # @File    : login.py
 # @Software: PyCharm
-from Common.BasePage import BasePage
+from Common.BasePage import *
 
 
 class login(BasePage):

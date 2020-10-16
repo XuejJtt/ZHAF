@@ -39,6 +39,7 @@ class Test_login:
             P_log.error("{0}用例失败原因:{1}".format(LTD.success_data['name'],e))
             login(init_web).save_picture('用例异常截图')
             raise e
+
     @pytest.mark.parametrize('data',LTD.error_data)
     def test_login_error(self,init_web,data):
         self.test_login_error.__func__.__doc__ = data['dec']
