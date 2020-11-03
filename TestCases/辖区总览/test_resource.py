@@ -164,3 +164,33 @@ class Test_resource:
             P_log.error("{0}用例失败原因:{1}".format(T.alarm_total['name'], e))
             login_web.save_picture('用例异常截图')
             raise e
+
+    @pytest.mark.somke
+    def test_alarm_top5_7days(self,login_web):
+        self.test_alarm_top5_7days.__func__.__doc__ = T.top5_7dayas['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(T.top5_7dayas['name']))
+        try:
+            会议室门 = First_Page(login_web).get_text(First_Page.小会议室)
+            ymq = First_Page(login_web).get_text(First_Page.ymq)
+            门口走廊 = First_Page(login_web).get_text(First_Page.门口走廊)
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(T.top5_7dayas['name']))
+            P_log.error("{0}用例失败原因:{1}".format(T.top5_7dayas['name'], e))
+            login_web.save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.somke
+    def test_alarm_top5_sum(self, login_web):
+        self.test_alarm_top5_sum.__func__.__doc__ = T.top5_sum['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(T.top5_sum['name']))
+        try:
+            First_Page(login_web).select_laber('点位告警', '累计')
+            会议室门 = First_Page(login_web).get_text(First_Page.小会议室累计)
+            ymq = First_Page(login_web).get_text(First_Page.ymq_sum)
+            门口走廊 = First_Page(login_web).get_text(First_Page.门口走廊累计)
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(T.top5_sum['name']))
+            P_log.error("{0}用例失败原因:{1}".format(T.top5_sum['name'], e))
+            login_web.save_picture('用例异常截图')
+            raise e
+

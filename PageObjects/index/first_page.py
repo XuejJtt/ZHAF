@@ -126,6 +126,16 @@ class First_Page(BasePage):
     告警统计累计人体 = '(//span[@class="body-legend"])[3]//following-sibling::span'
     告警统计累计机动车 = '(//span[@class="vehicle-legend"])[3]//following-sibling::span'
 
+    #点位告警top5下的对象
+    ymq = '(//span[contains(text(),"ymq")])[1]/following-sibling::span'
+    小会议室 = '(//span[contains(text(),"小会议室门上")])[1]/following-sibling::span'
+    门口走廊 = '(//span[contains(text(),"门口内部走廊")])[1]/following-sibling::span'
+
+    ymq_sum = '(//span[contains(text(),"ymq")])[2]/following-sibling::span'
+    小会议室累计 = '(//span[contains(text(),"小会议室门上")])[2]/following-sibling::span'
+    门口走廊累计 = '(//span[contains(text(),"门口内部走廊")])[2]/following-sibling::span'
+
+
     # 获取登录后的用户名
     def get_login_name(self):
         return self.get_text(self.username)

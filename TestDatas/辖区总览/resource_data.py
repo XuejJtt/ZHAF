@@ -23,3 +23,7 @@ monitor_statistics={'name':'布控统计','dec':'布控统计测试'}
 alarm_7days={'name':'7天告警统计','dec':'7天告警统计测试'}
 
 alarm_total={'name':'累计告警统计','dec':'累计告警统计测试'}
+
+top5_7dayas={'name':'top5_7天告警','dec':'top5_7天告警'}
+
+top5_sum={'name':'top5_累计','dec':'top5累计告警'}
