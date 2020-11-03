@@ -6,7 +6,7 @@
 # @Software :PyCharm
 
 import pytest
-from PageObjects.login.login import login
+# from PageObjects.login.login import login
 from PageObjects.index.first_page import First_Page
 from PageObjects.system.user import *
 from Common.log import Log
@@ -33,6 +33,7 @@ class Test_user:
             User(login_web).save_picture('用例异常截图')
             raise e
 
+    @pytest.mark.smoke
     def test_modifyuser(self, login_web):
         P_log.info('*******开始执行【修改用户】测试用例******')
         First_Page(login_web).manager(2, 'user')
@@ -59,9 +60,10 @@ class Test_user:
         except Exception as e:
             R_log.info("******【冻结用户】用例执行失败******")
             P_log.error("******【冻结用户】用例失败,失败原因:{0}******".format(e))
-            login(login_web).save_picture('用例异常截图')
+            User(login_web).save_picture('用例异常截图')
             raise e
 
+    @pytest.mark.smoke
     def test_deluser(self, login_web):
         P_log.info('*******开始执行【删除用户】测试用例******')
         First_Page(login_web).manager(2, 'user')
@@ -74,17 +76,29 @@ class Test_user:
         except Exception as e:
             R_log.info("******【删除用户】用例执行失败******")
             P_log.error("******【删除用户】用例失败,失败原因:{0}******".format(e))
-            login(login_web).save_picture('用例异常截图')
+            User(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.parametrize('data',News.newusererr)
     def test_newusererror(self, login_web,data):
         P_log.info('*******开始执行【新增用户】{0}测试用例******'.format(data['casename']))
         First_Page(login_web).manager(2, 'user')
-        User(login_web).add_user(data['phone'],data['name'],data['pwd'],data['pwdtwo'])
+        if data['casename']=='所属组织为空':
+            User(login_web).user_departnull(data['phone'],data['name'],data['pwd'],data['pwdtwo'])
+        elif data['casename']=='所属角色为空':
+            User(login_web).user_rolenull(data['phone'],data['name'],data['pwd'],data['pwdtwo'])
+        elif '身份证' in data['casename']:
+            User(login_web).add_user(data['phone'],data['name'],data['pwd'],data['pwdtwo'],data['cardID'])
+        elif data['casename']=='手机号码已存在':
+            User(login_web).add_user(data['phone'], data['name'], data['pwd'], data['pwdtwo'])
+            User(login_web).add_user(data['phone'], data['name'], data['pwd'], data['pwdtwo'])
+        else:
+            User(login_web).add_user(data['phone'], data['name'], data['pwd'], data['pwdtwo'])
+
+        msg = User(login_web).get_errorinfo()
         try:
             P_log.info("*******开始进行【新增用户】{0}测试用例结果校验*********".format(data['casename']))
-            assert User(login_web).get_errorinfo()==data['error']
+            assert data['error'] in msg
             R_log.info("******【新增用户】{0}用例执行成功******".format(data['casename']))
         except Exception as e:
             R_log.info("【新增用户】{0}用例执行失败".format(data['casename']))

@@ -31,7 +31,10 @@ driver = None
 def init_web():
     global driver
     if sys.platform =='win32':
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        option.add_argument('--headless')
+        driver = webdriver.Chrome(options=option)
     else:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
@@ -51,7 +54,10 @@ def init_web():
 def login_web():
     global driver
     if sys.platform =='win32':
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        option.add_argument('--headless')
+        driver = webdriver.Chrome(options=option)
     else:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
