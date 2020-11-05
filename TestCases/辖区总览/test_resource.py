@@ -54,7 +54,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.resource_7days['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.resource_7days['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -68,7 +68,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.resource_total['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.resource_total['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -85,7 +85,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.devices_total['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.devices_total['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -103,7 +103,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.devices_online['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.devices_online['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -118,7 +118,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.archives_statistics['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.archives_statistics['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -132,7 +132,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.monitor_statistics['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.monitor_statistics['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -147,7 +147,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.alarm_7days['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.alarm_7days['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -162,7 +162,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.alarm_total['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.alarm_total['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -176,7 +176,7 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.top5_7dayas['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.top5_7dayas['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
     @pytest.mark.somke
@@ -191,6 +191,28 @@ class Test_resource:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(T.top5_sum['name']))
             P_log.error("{0}用例失败原因:{1}".format(T.top5_sum['name'], e))
-            login_web.save_picture('用例异常截图')
+            First_Page(login_web).save_picture('用例异常截图')
+            raise e
+
+
+
+    @pytest.mark.parametrize('data',T.resource_select)
+    @pytest.mark.somke
+    def test_resource_select(self,login_web,data):
+        self.test_resource_select.__func__.__doc__ = data['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(data['name']))
+        try:
+            First_Page(login_web).click(First_Page.资源按钮)
+            time.sleep(1)
+            d = First_Page.__dict__
+            # 字典解析式
+            dic = {key:d[key] for key in d if "_" not in d}
+            First_Page(login_web).click(dic[data['object']])
+            #图像比对
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(data['name']))
+            P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
+            First_Page(login_web).save_picture('用例异常截图')
             raise e
 
