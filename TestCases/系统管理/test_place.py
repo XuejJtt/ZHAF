@@ -26,7 +26,7 @@ class Test_Place:
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
-
+    @pytest.mark.smoke
     def test_modify_area(self,login_web):
         P_log.info("*******开始执行{0}测试用例******".format(place_date.editarea['casename']))
         First_Page(login_web).manager(5, 'place')
@@ -42,6 +42,7 @@ class Test_Place:
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
+    @pytest.mark.smoke
     def test_delete_area(self,login_web):
         P_log.info("*******开始执行【删除区域】测试用例******")
         First_Page(login_web).manager(5, 'place')
@@ -91,7 +92,7 @@ class Test_Place:
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
-
+    @pytest.mark.smoke
     def test_modify_place(self,login_web):
         P_log.info("*******开始执行{0}测试用例******".format(place_date.editplace['casename']))
         First_Page(login_web).manager(5, 'place')
@@ -108,6 +109,7 @@ class Test_Place:
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
+    @pytest.mark.smoke
     def test_delete_place(self,login_web):
         P_log.info("*******开始执行【删除场所】测试用例******")
         First_Page(login_web).manager(5, 'place')

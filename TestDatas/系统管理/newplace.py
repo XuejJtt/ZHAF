@@ -24,7 +24,7 @@ newarea_err=[{'casename':'新增区域--区域名称为空','areaname':'',
 
 #新增场所
 newplace={'casename':'新增场所','placename':'autotestplace'+str(i),'placedisc':'仙鹤新天地广场'}
-#修改区域
+#修改场所
 editplace={'casename':'修改场所','placename':'editplace'+str(i),'placedisc':'edit场所描述'}
 
 #新增场所异常场景

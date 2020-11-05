@@ -49,6 +49,7 @@ class Test_user:
             User(login_web).save_picture('用例异常截图')
             raise e
 
+
     def test_freezeuser(self, login_web):
         P_log.info('*******开始执行【冻结用户】测试用例******')
         First_Page(login_web).manager(2, 'user')
