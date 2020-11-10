@@ -33,6 +33,10 @@ class GraphicalLocator:
 
 
     def find_and_check(self, drv):
+        """
+        @param drv: 实际截图的路径
+        @return: 判断结果，True or Flase
+        """
         # 坐标复位
         self.x = self.y = None
         # 打开图片
