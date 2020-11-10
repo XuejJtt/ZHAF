@@ -273,10 +273,10 @@ class BasePage:
     def save_picture(self, doc, flag=True):
         '''
         :param doc: 截图的名称
-        :return:
+        :return: pic_path
         '''
         if sys.platform == 'win32':
-            file_dir = '\\{0}_截图目录'.format(time.strftime('%Y-%m-%d'))
+            file_dir = '\\{0}_screenshots_dir'.format(time.strftime('%Y-%m-%d'))
             filepath = screenshots_dir + file_dir
             if not os.path.exists(filepath):
                 os.makedirs(filepath)
@@ -284,13 +284,15 @@ class BasePage:
             self.driver.save_screenshot(pic_path)
             P_log.info("已截取当前页面，文件路径：{0}".format(pic_path))
         else:
-            file_dir = '/{0}_截图目录'.format(time.strftime('%Y-%m-%d'))
+            file_dir = '/{0}_screenshots_dir'.format(time.strftime('%Y-%m-%d'))
             filepath = screenshots_dir + file_dir
             if not os.path.exists(filepath):
                 os.makedirs(filepath)
             pic_path = filepath + "/{0}-{1}.png".format(doc, time.strftime('%Y-%m-%d_%H_%M_%S'))
             self.driver.save_screenshot(pic_path)
             P_log.info("已截取当前页面，文件路径：{0}".format(pic_path))
+
+        return pic_path
 
     def switch_window(self):
         pass

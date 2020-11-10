@@ -10,6 +10,7 @@ from Common import dir_config
 from PageObjects.index.first_page import First_Page
 import time
 from TestDatas.辖区总览 import resource_data as T
+from Common.Compare import GraphicalLocator as G
 
 P_log = Log(dir_config.processlog_dir)
 R_log = Log(dir_config.resultlog_dir)
@@ -209,10 +210,15 @@ class Test_resource:
             dic = {key:d[key] for key in d if "_" not in d}
             First_Page(login_web).click(dic[data['object']])
             #图像比对
+            src = First_Page(login_web).save_picture('src')
+            time.sleep(1)
+            res = G(data['pic']).find_and_check(src)
+            assert res
 
         except Exception as e:
             R_log.info("{0}用例执行失败".format(data['name']))
             P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
             First_Page(login_web).save_picture('用例异常截图')
             raise e
+
 
