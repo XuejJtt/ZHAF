@@ -8,7 +8,7 @@
 
 #正常的测试用例
 
-success_data ={'name':'登录功能_正常测试', 'username':'securityAdmin' ,'pwd':'123qwe','dec':'登录功能正常测试'}
+success_data ={'name':'登录功能_正常测试', 'username':'19900000001' ,'pwd':'123qwe','dec':'登录功能正常测试'}
 
 
 #异常的测试用例

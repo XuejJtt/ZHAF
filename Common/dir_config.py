@@ -37,6 +37,8 @@ testcases_dir = os.path.join(base_dir,'TestCases')
 
 testdatas_dir = os.path.join(base_dir,'TestDatas')
 
+pic_dir = os.path.join(base_dir,'Locpic')
+
 
 if __name__ == '__main__':
     print(processlog_dir,resultlog_dir)

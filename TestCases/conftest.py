@@ -34,7 +34,7 @@ def init_web():
         # driver = webdriver.Chrome()
         option = webdriver.ChromeOptions()
         option.add_argument('--headless')
-        driver = webdriver.Chrome(options=option)
+        driver = webdriver.Chrome()
     else:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
@@ -57,7 +57,7 @@ def login_web():
         # driver = webdriver.Chrome()
         option = webdriver.ChromeOptions()
         option.add_argument('--headless')
-        driver = webdriver.Chrome(options=option)
+        driver = webdriver.Chrome()
     else:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')

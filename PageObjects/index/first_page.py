@@ -127,7 +127,7 @@ class First_Page(BasePage):
     告警统计累计人体 = '(//span[@class="body-legend"])[3]//following-sibling::span'
     告警统计累计机动车 = '(//span[@class="vehicle-legend"])[3]//following-sibling::span'
 
-    #点位告警top5下的对象
+    # 点位告警top5下的对象
     ymq = '(//span[contains(text(),"ymq")])[1]/following-sibling::span'
     小会议室 = '(//span[contains(text(),"小会议室门上")])[1]/following-sibling::span'
     门口走廊 = '(//span[contains(text(),"门口内部走廊")])[1]/following-sibling::span'
@@ -137,21 +137,31 @@ class First_Page(BasePage):
     门口走廊累计 = '(//span[contains(text(),"门口内部走廊")])[2]/following-sibling::span'
 
 
+    # 资源下的对象
+    资源按钮 = '//div[@style="cursor: pointer;"]'
+    视屏流相机 = '//div[contains(text(),"视频流相机")]'
+    智能抓拍机 = '//div[contains(text(),"智能抓拍机")]'
+    GB28181相机 = '//div[contains(text(),"GB28181")]'
+    视图库相机 = '//div[contains(text(),"视图库")]'
+    在线 = '(//button)[1]'
+    离线 = '(//button)[2]'
+
+    地图背景 = '//div[contains(text(),"地图背景")]'
+    poi = '//div[contains(text(),"POI")]'
+    道路 = '//div[contains(text(),"道路")]'
+    行政标注 = '//div[contains(text(),"行政标注")]'
+
+
     # 获取登录后的用户名
     def get_login_name(self):
         return self.get_text(self.username)
 
     # 点击进入系统管理下的子菜单
     def manager(self, num, t):
-        """
-        :param num: 系统管理下拉列表 0：组织管理  1：角色管理 2：用户管理 3：监控相机管理 4：智能终端管理 5：场所管理 6：日志管理
-        :param t:窗口标题栏字符串
-        :return:
-        """
         P_log.info('点击进入系统管理下的子菜单')
         self.move_mouse(self.mager)  # 鼠标悬停在管理上
         # self.find_elements(self.sysmager)[num].click()  # 点击管理下边的元素进入系统管理
-        self.clicks(self.sysmager, By.CSS_SELECTOR, index=num)  # 点击管理下边的元素进入系统管理
+        self.clicks(self.sysmager, By.CSS_SELECTOR, 40, 'visible', num)  # 点击管理下边的元素进入系统管理
         for handle in self.driver.window_handles:  # 获取当前浏览器所有窗口句柄
             self.driver.switch_to.window(handle)  # 得到该窗口的标题栏字符串
             if t in self.driver.title:  # 判断当前窗口是否包含该字符串，如果是，跳出循环
