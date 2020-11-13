@@ -28,7 +28,8 @@ class Camera(BasePage):
     ftpadress = '//input[@placeholder = "请输入FTP地址"]'  # FTP地址
     port = '//input[@placeholder = "请输入端口"]'  # 端口
     usname = '//input[@placeholder = "请输入用户名"]'  # 用户名
-    pwd = '//input[@placeholder = "请输入密码"]'  # 密码
+    pwd = '//*[@title="密码"]/../following-sibling::*//input'  # 密码
+    filepath='//*[@title="文件路径"]/../following-sibling::*//input'#文件路径
     salveIP = '//input[@placeholder = "请输入接入服务器salveIP"]'  # salveIP
     deviceid = '//input[@placeholder = "请输入设备id"]'  # 设备id
     Streamaddress = '//input[@placeholder = "请输入预览流地址"]'  # 预览流地址
@@ -84,19 +85,37 @@ class Camera(BasePage):
         time.sleep(2)
 
 
-    # def newcaptureftp(self,devicename):
-    #     self.clicks(self.area)  # 点击左侧组织下拉列表
-    #     self.clicks(self.node)  # 选择下拉列表第一个子节点
-    #     self.click(self.addbt)  # 点击新增设备按钮
-    #     self.clicks(self.dtype,index=1)# 设备类型 选择第一个：智能抓拍机
-    #     self.click(self.nextbt)  # 点击下一步按钮
-    #     self.click(self.accessmode,By.CSS_SELECTOR)#点击接入方式下拉框
-    #     self.clicks(self.modeselect) #选择第一个：ftp
-    #     self.input_text(self.devicename,devicename)#输入设备名称
-    #     self.input_text(self.ftpadress,'10.10.1.122')#输入ftp地址
-    #     self.input_text(self.port,'80')#输入端口号
-    #     self.input_text(self.usname,'admin')#输入用户名
-    #     self.input_text(self.pwd,'password')#输入密码
+    def newcaptureftp(self,devicename):#新增智能抓拍机/ftp
+        self.clicks(self.area)  # 点击左侧组织下拉列表
+        self.clicks(self.node)  # 选择下拉列表第一个子节点
+        self.click(self.addbt)  # 点击新增设备按钮
+        self.clicks(self.dtype,index=1)# 设备类型 选择第一个：智能抓拍机
+        self.click(self.nextbt)  # 点击下一步按钮
+        self.click(self.accessmode,By.CSS_SELECTOR)#点击接入方式下拉框
+        self.clicks(self.modeselect) #选择第一个：ftp
+        self.input_text(self.devicename,devicename)#输入设备名称
+        self.input_text(self.ftpadress,'10.10.1.122')#输入ftp地址
+        self.input_text(self.port,'80')#输入端口号
+        self.input_text(self.usname,'admin',type="invisible",scroll=True)#输入用户名
+        self.input_text(self.pwd,'password')#输入密码
+        self.input_text(self.filepath,'/test/face/camera')#输入文件路径
+        self.input_text(self.longitude, "12")  # 输入经度
+        self.input_text(self.latitude, '15')  # 输入纬度
+        self.click(self.nextbt)  # 点击下一步按钮
+        self.click(self.confirm)  # 点击确认按钮
+        time.sleep(2)
+
+    def modifyftp(self,devicename,sn):#修改ftp智能抓拍机sn字段
+        self.input_text(self.search, devicename)  # 查询输入框输入设备名称
+        self.click(self.modify)  # 点击编辑按钮
+        time.sleep(2)
+        self.click(self.nextbt)  # 点击下一步按钮
+        self.input_text(self.SN, sn)  # 输入sn码
+        self.click(self.confirm)  # 点击确认按钮
+        time.sleep(2)
+
+
+
 
     def newcapturega1400(self,devicename):#新增智能抓拍机/ga1400
         self.clicks(self.area)  # 点击左侧组织下拉列表

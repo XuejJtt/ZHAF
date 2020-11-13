@@ -42,8 +42,18 @@ class Test_Camera():
             R_log.info("*******【编辑视频流相机】测试用例执行失败,失败原因{0}******".format(e))
             raise e
 
+    @pytest.mark.capture
     def test_newcapture_ftp(self,login_web):#新增智能抓拍机/ftp
-        pass
+        First_Page(login_web).manager(3, 'camera')
+        P_log.info("*******开始执行【{0}】测试用例******".format(LD.newcapture_ftp['casename']))
+        Camera(login_web).newcaptureftp(LD.newcapture_ftp['devicename'])
+        try:
+            P_log.info("*******开始执行【{0}】测试用例结果校验******".format(LD.newcapture_ftp['casename']))
+            assert Camera(login_web).getinfo(LD.newcapture_ftp['devicename'])[0] == LD.newcapture_ftp['devicename']  # 设备名称校验正确
+            R_log.info("*******【{0}】测试用例执行成功******".format(LD.newcapture_ftp['casename']))
+        except Exception as e:
+            P_log.info("*******【{0}】测试用例执行失败******".format(LD.newcapture_ftp['casename']))
+            R_log.info("*******【{0}】测试用例执行失败，失败原因{1}******".format(LD.newcapture_ftp['casename'], e))
 
     @pytest.mark.smoke
     def test_newcapture_ga1400(self,login_web):#新增智能抓拍机/ga1400
@@ -72,8 +82,19 @@ class Test_Camera():
             P_log.info("*******【{0}】测试用例执行失败******".format(LD.newcapture_private['casename']))
             R_log.info("*******【{0}】测试用例执行失败，失败原因{1}******".format(LD.newcapture_private['casename'], e))
 
-    def test_modifycapture_ftp(self,login_web):#修改智能抓拍机/ftp
-        pass
+    @pytest.mark.capture
+    def test_modifycapture_ftp(self,login_web):#修改智能抓拍机/ftp  修改SN字段
+        First_Page(login_web).manager(3, 'camera')
+        P_log.info("*******开始执行【编辑ftp智能抓拍机】测试用例******")
+        Camera(login_web).modifyftp(LD.newcapture_ftp['devicename'], LD.SN)
+        try:
+            P_log.info("*******开始执行【编辑ftp智能抓拍机】测试用例结果校验******")
+            assert Camera(login_web).getinfo(LD.newcapture_ftp['devicename'])[1] == LD.SN  # 设备SN码校验正确
+            R_log.info("*******【编辑ftp智能抓拍机】测试用例执行成功******")
+        except Exception as e:
+            P_log.info("*******【编辑ftp智能抓拍机】测试用例执行失败******")
+            R_log.info("*******【编辑ftp智能抓拍机】测试用例执行失败,失败原因{0}******".format(e))
+            raise e
 
     def test_modifycapture_ga1400(self,login_web):#修改智能抓拍机/ga1400
         pass
