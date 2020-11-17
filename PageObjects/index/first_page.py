@@ -23,9 +23,9 @@ class First_Page(BasePage):
     # 管理下的子菜单
     sysmager = '.icon-title'
     # 边缘智能选择按钮
-    edgeIntelligence = '//li[@class=''special ant-menu-item''][1]'
+    edgeIntelligence = '(//i[@class="anticon"])[2]'
     # 解析管理选择按钮
-    analytical = '//li[@class=''special ant-menu-item''][2]'
+    analytical = '(//i[@class="anticon"])[3]'
     # 资源图库
     gallery = '//span[contains(text(),"资源图库")]/parent::span'
     # 人脸图库

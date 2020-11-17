@@ -56,8 +56,9 @@ def login_web():
     if sys.platform =='win32':
         # driver = webdriver.Chrome()
         option = webdriver.ChromeOptions()
-        option.add_argument('--headless')
-        driver = webdriver.Chrome()
+        # option.add_argument('--headless')
+        option.add_argument('start-maximized')
+        driver = webdriver.Chrome(options=option)
     else:
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')

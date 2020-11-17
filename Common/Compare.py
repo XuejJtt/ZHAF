@@ -31,7 +31,6 @@ class GraphicalLocator:
         self.threshold = None
         self.result = True
 
-
     def find_and_check(self, drv):
         """
         @param drv: 实际截图的路径
@@ -74,13 +73,13 @@ class GraphicalLocator:
         # 保存阈值匹配：图形图像和图像直方图
         self.threshold = {'shape': round(img_match[1], 2),
                           'histogram': round(comp_hist, 2)}
+        print(self.threshold)
         # 返回对比判断结果,布尔值
         self.result = True if self.threshold['shape'] >= self.threshold_1 and self.threshold[
             'histogram'] >= self.threshold_2 else False
         return self.result
 
+
 if __name__ == '__main__':
-    is_found = GraphicalLocator('F:\\ZHAF\\TestCases\\forsee.png').find_and_check('F:\\ZHAF\\TestCases\\err.png')
-    is_found_1 = GraphicalLocator('F://ZHAF//TestCases//forsee.png').find_and_check('F://ZHAF//TestCases//err2.png')
-    is_found_2 = GraphicalLocator('F:\\ZHAF\\Locpic\\xqzl\\1.png').find_and_check('F:\\ZHAF\\TestCases\\err.png')
-    print(is_found,is_found_1,is_found_2)
+        result_1 = GraphicalLocator('F:\\ZHAF\\Locpic\\byzn\\6.png').find_and_check('F:\\ZHAF\\ScreenShots\\2020-11-16_screenshots_dir\\src-2020-11-16_16_40_35.png')
+        print(result_1)
