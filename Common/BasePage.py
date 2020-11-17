@@ -300,7 +300,8 @@ class BasePage:
     def switch_iframe(self):
         pass
 
-
-
+    #页面刷新
+    def refresh(self):
+        return self.driver.refresh()
 
 
