@@ -27,6 +27,13 @@ class Area_managerment(BasePage):
     place_type='div[class="ant-select-selection__placeholder"]'#场所类型
     place_list='ant-select-dropdown-menu-item'#场所类型下拉框
     name_search='[placeholder="请输入名称"]'#名称搜索框
+    nature_select='//div[@class="ant-select-selection__rendered"]'#性质下拉框
+    nature_search='//li[text()="场所"]'#性质--场所搜索框
+    type_click='//div[@class="msg-wrapper"]'#类型选择框
+    type_more='(//span[@class="ant-tree-switcher ant-tree-switcher_close"])[2]'#类型选择框
+    type_one='//span[@title="餐饮美食"]/preceding-sibling::span[1]'#选择餐饮美食 选项
+    type_add='//div[@class="option"]/div[1]'#添加
+
     edit_button='//*[@class="ant-btn ant-btn-link"]'#操作按钮 0：编辑  1：分配设备  2：删除  3：上移  4：下移
     edit_areaname='//input[@placeholder="请输入"]'#修改区域名称
     edit_areadis='//textarea[@placeholder="请输入"]'#修改区域描述
@@ -35,7 +42,13 @@ class Area_managerment(BasePage):
     result_dis='.ant-table-tbody [class="ant-table-row-cell-ellipsis"]'#区域描述
     emptylist = 'ant-empty-description'  # 空列表，表示删除成功
     area_errinfo='//div[@class="ant-form-explain"]'#区域（场所名称）错误提示语
-
+    getlines='//*[@class="ant-table-row ant-table-row-level-0 coustomer-row"]'# 列表中的行,数字表示行数
+    getnames = '//*[@class="ant-table-row ant-table-row-level-0 coustomer-row"][{0}]/td[{1}]'  # 列表中的字段，{0}表示行数，{1}表示字段名，3：名称 4：描述
+    gettypes = '//*[@class="ant-table-row ant-table-row-level-0 coustomer-row"][{0}]/td[{1}]/span'#列表中的字段，{0}表示行数，{1}表示字段名， 5：性质 6：类型
+    getname1 = '//*[@class="ant-table-row ant-table-row-level-0 coustomer-row"]/td[{1}]'  # 列表中的字段，{0}表示行数，{1}表示字段名，3：名称 4：描述
+    gettype1 = '//*[@class="ant-table-row ant-table-row-level-0 coustomer-row"]/td[{1}]/span'  # 列表中的字段，{0}表示行数，{1}表示字段名， 5：性质 6：类型
+    页码='//li[@title="下一页"]/preceding-sibling::li[1]/a'#获取总共的页码数
+    翻页='//li[@title="下一页"]'#下一页按钮
 
     def new_area(self,areaname,areadisc):  # 新建区域
         self.click(self.add,By.CLASS_NAME)# 点击新增按钮
@@ -141,3 +154,59 @@ class Area_managerment(BasePage):
         self.input_text(self.name_search, Area_managerment.list1[n], By.CSS_SELECTOR)  # 在搜索框中输入名称
         sleep(2)
         return self.get_text(self.emptylist, By.CLASS_NAME)  # 空列表时，为字段文本为No Data
+
+    def search_info(self,option="nature"):#根据性质/类型查询条件搜索功能
+        if option=="nature":
+            self.click(self.nature_select)
+            self.click(self.nature_search)#选择性质为场所，查询
+        else:
+            self.click(self.type_click)
+            self.click(self.type_more)
+            self.click(self.type_one)
+            self.click(self.type_add)
+            self.click(self.primary,By.CSS_SELECTOR)#选择场所为”餐饮美食“，查询
+
+
+    def get_areainfos(self):
+        lins=self.find_elements(self.getlines)
+        count=len(lins) #获取当前页面列表行数
+        pages=int(self.get_text(self.页码))#获取页码数
+        listname=[]#列表名称
+        listdisc=[]#列表描述
+        listnature=[]#列表性质
+        listtype=[]#列表类型
+
+        """
+        获取第一页数据
+        """
+        for i in range(count):
+            names=self.get_text(self.getnames.format(i+1,3))#获取列表中名称字段
+            listname.append(names)
+            discs=self.get_text(self.getnames.format(i+1,4))  # 获取列表中描述字段
+            listdisc.append(discs)
+            natures=self.get_text(self.gettypes.format(i+1,5))  # 获取列表中性质字段
+            listnature.append(natures)
+            types=self.get_text(self.gettypes.format(i+1,6))  # 获取列表中类型字段
+            listtype.append(types)
+        """
+        获取第一页之后的数据
+        """
+        if pages !=1:
+            for n in range(1,pages):
+                self.click(self.翻页)  # 点击下一页翻页按钮
+                lins = self.find_elements(self.getlines)
+                count = len(lins)  # 获取当前页面列表行数
+                for i in range(count):
+                    names = self.get_text(self.getnames.format(i+1,3))  # 获取列表中名称字段
+                    listname.append(names)
+                    discs = self.get_text(self.getnames.format(i+1,4))  # 获取列表中描述字段
+                    listdisc.append(discs)
+                    natures = self.get_text(self.gettypes.format(i+1,5))  # 获取列表中性质字段
+                    listnature.append(natures)
+                    types = self.get_text(self.gettypes.format(i+1,6))  # 获取列表中类型字段
+                    listtype.append(types)
+
+
+        print(listname,listdisc,listnature,listtype)
+        return listname,listdisc,listnature,listtype
+

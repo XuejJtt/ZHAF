@@ -144,6 +144,58 @@ class Test_Place:
             BasePage(login_web).save_picture('用例异常截图')
             raise e
 
+    #根据性质场所/区域查询
+
+    def test_naturesearch(self,login_web):
+        P_log.info("*******开始执行【性质查询】测试用例******")
+        First_Page(login_web).manager(4, 'place')
+        Area_managerment(login_web).search_info()
+        listall=Area_managerment(login_web).get_areainfos()
+        list_n=list(set(listall[2]))
+        try:
+            P_log.info("*******开始进行【性质查询】测试用例结果校验*********")
+            assert "区域" not in listall[2]
+            assert len(list_n)==1
+            R_log.info("******【性质查询】用例执行成功******")
+        except Exception as e:
+            R_log.info("【性质查询】用例执行失败")
+            P_log.error("【性质查询】用例执行失败,失败原因：{0}".format(e))
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
+    #根据类型查询
+
+    def test_typesearch(self,login_web):
+        P_log.info("*******开始执行【类型查询】测试用例******")
+        First_Page(login_web).manager(4, 'place')
+        Area_managerment(login_web).search_info(option="type")
+        listall = Area_managerment(login_web).get_areainfos()
+        list_n = list(set(listall[3]))
+        try:
+            P_log.info("*******开始进行【类型查询】测试用例结果校验*********")
+            assert "餐饮美食" in listall[3]
+            assert len(list_n) == 1#验证查询结果中只存在一个值
+            R_log.info("******【类型查询】用例执行成功******")
+        except Exception as e:
+            R_log.info("【类型查询】用例执行失败")
+            P_log.error("【类型查询】用例执行失败,失败原因：{0}".format(e))
+            BasePage(login_web).save_picture('用例异常截图')
+            raise e
+
+
+
+
+
+
+
+
+    def test_gettable(self,login_web):
+        First_Page(login_web).manager(4, 'place')
+        listall=Area_managerment(login_web).get_areainfos()
+        P_log.info("获取到的场所名称为：{0},获取到的场所描述为：{1},获取到的场所性质为：{2},获取到的场所类型为：{3}".format(listall[0],listall[1],listall[2],listall[3]))
+        print(list(set(listall[2])))
+        list_n = list(set(listall[2]))
+        print(len(list_n))
 
 if __name__=='__main__':
     pytest.main(['-q','test_place.py'])
