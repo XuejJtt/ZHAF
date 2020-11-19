@@ -305,3 +305,30 @@ class BasePage:
         return self.driver.refresh()
 
 
+    #解析页面数据，返回一个列表
+    def process_text(self,head,body,separator_head=' ',separator_body='\n'):
+        """
+        @param head: 标题头
+        @param body: 正文部分
+        @param separator_head: 标题切割符号
+        @param separator_body: 正文切割符号
+        @return:
+        """
+        final_list = []
+        head_list = head.split(separator_head)
+        body_list = body.split(separator_body)
+        len_head = len(head_list)
+        len_body = len(body_list)
+        for i in range(0,len_head):
+            temporary_list = []
+            for j in range(i,len_body,len_head):
+                temporary_list.append(body_list[j])
+            final_list.append(temporary_list)
+        return final_list
+
+
+
+
+
+
+
