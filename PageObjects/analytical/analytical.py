@@ -10,6 +10,7 @@ from Common.log import Log
 from Common.dir_config import *
 from selenium.webdriver.common.by import By
 import time
+from selenium.webdriver.common.keys import Keys
 
 
 # 定义resultlog和processlog
@@ -33,3 +34,14 @@ class Analytical(BasePage):
     列表标题 = '//div[@class="el-table__header-wrapper"]'
     查询按钮 = '//span[text()="查询"]'
     重置按钮 = '//span[text()="重置"]'
+    设备类型 = '(//input[@placeholder="请选择"])[1]'
+    任务状态 = '(//input[@placeholder="请选择"])[2]'
+
+    def select_type(self,item):
+        if item =='':
+            pass
+
+
+    def select_state(self,state):
+        if state =='':
+            pass
