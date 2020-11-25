@@ -69,14 +69,14 @@ span.error, span.failed, span.xpassed, .error .col-result, .failed .col-result, 
 
 #results-table {
 	border: 1px solid #e6e6e6;
-	color: #999;
+	color: #999999;
 	font-size: 12px;
 	width: 100%
 }
 
 #results-table th, #results-table td {
 	padding: 5px;
-	border: 1px solid #E6E6E6;
+	border: 1px solid #e6e6e6;
 	text-align: left
 }
 #results-table th {
@@ -93,7 +93,7 @@ span.error, span.failed, span.xpassed, .error .col-result, .failed .col-result, 
 .log {
 	background-color: #e6e6e6;
 	border: 1px solid #e6e6e6;
-	color: black;
+	color: #000000;
 	display: block;
 	font-family: "Courier New", Courier, monospace;
 	height: 230px;
@@ -117,7 +117,7 @@ div.image img {
 }
 .expander::after {
 	content: " (显示详细信息)";
-	color: #BBB;
+	color: #bbbbbb;
 	font-style: italic;
 	cursor: pointer;
 }

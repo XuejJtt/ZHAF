@@ -100,10 +100,9 @@ class Test_analytical:
             # 获取列表正文部分
             body = Analytical(login_web).get_text(Analytical.列表)
             # 得到处理完的页面数据，结构式大列表嵌套
-            list = Analytical(login_web).process_text(head, body)
-            print(list)
+            list_1 = Analytical(login_web).process_text(head, body)
             #判断查询到的设备名称是否是查询输入的设备名称
-            assert E.query_device['device'] == list[0][0]
+            assert E.query_device['device'] == list_1[0][0]
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.query_device['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.query_device['name'], e))
@@ -111,5 +110,111 @@ class Test_analytical:
             raise e
 
 
+    @pytest.mark.smoke
+    def test_query_reset(self,login_web):
+        self.test_query_reset.__func__.__doc__ = E.query_reset['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.query_reset['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.query_reset['device'])
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.重置按钮)
+            time.sleep(2.5)
+            body_1 = Analytical(login_web).get_text(Analytical.列表)
+            list = Analytical(login_web).process_text(head,body)
+            list_1 = Analytical(login_web).process_text(head,body_1)
+            #判断标准执行前后的解析列表长度不相等
+            assert list != list_1
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.query_reset['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.query_reset['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_mix_select(self,login_web):
+        self.test_mix_select.__func__.__doc__ = E.mix_query['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.query_reset['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.设备类型)
+            time.sleep(2)
+            Analytical(login_web).select_type(E.mix_query['type'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.任务状态)
+            time.sleep(2)
+            Analytical(login_web).select_state(E.mix_query['state'])
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.查询按钮)
+            time.sleep(1)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            #检验筛选过后的实际状态与预期的状态一致
+            assert list_1[2][0] == E.mix_query['type'] and list_1[3][0] == E.mix_query['state']
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.query_reset['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.query_reset['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
 
 
+    @pytest.mark.parametrize('data', E.devices_select)
+    def test_device_type_select(self,login_web,data):
+        self.test_device_type_select.__func__.__doc__ = data['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(data['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.设备类型)
+            time.sleep(1)
+            Analytical(login_web).select_type(data['type'])
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            if list_1[0][0] == '暂无数据':
+                P_log.info("查询结果为空")
+            else:
+                assert list_1[2][0] == data['type']
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(data['name']))
+            P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.parametrize('data', E.task_select)
+    def test_task_state_select(self,login_web,data):
+        self.test_device_type_select.__func__.__doc__ = data['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(data['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.任务状态)
+            time.sleep(1)
+            Analytical(login_web).select_state(data['state'])
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            if list_1[0][0] == '暂无数据':
+                P_log.info("查询结果为空")
+            else:
+                assert list_1[3][0] == data['state']
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(data['name']))
+            P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e

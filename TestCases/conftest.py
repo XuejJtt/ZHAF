@@ -13,24 +13,20 @@ from Common.read_cofig import Read_Config as R
 from py._xmlgen import html
 import sys
 
+# 从配置文件中获取测试数据，和html配置数据
+datas = R(dir_config.config_dir, 'url.yaml').read_yaml()
+htmls = R(dir_config.config_dir, 'html.yaml').read_yaml()
+
+# 定义全局的driver
+
+global driver
 
 
-
-#从配置文件中获取测试数据，和html配置数据
-datas = R(dir_config.config_dir,'url.yaml').read_yaml()
-htmls = R(dir_config.config_dir,'html.yaml').read_yaml()
-
-
-#定义全局的driver
-
-driver = None
-
-
-#定义一个初始化web的fixture
+# 定义一个初始化web的fixture
 @pytest.fixture()
 def init_web():
     global driver
-    if sys.platform =='win32':
+    if sys.platform == 'win32':
         # driver = webdriver.Chrome()
         option = webdriver.ChromeOptions()
         option.add_argument('--headless')
@@ -40,20 +36,19 @@ def init_web():
         options.add_argument('--headless')
         options.add_argument('--isable-gpu')
         options.add_argument('--no-sandbox')
-        #chromedriver放在了ubuntun中绝对路径下面
-        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver',options=options)
+        # chromedriver放在了ubuntun中绝对路径下面
+        driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver', options=options)
     driver.maximize_window()
     driver.get(datas['url'])
     yield driver
     driver.quit()
 
 
-
-#定义一个登录好系统的fixture
+# 定义一个登录好系统的fixture
 @pytest.fixture()
 def login_web():
     global driver
-    if sys.platform =='win32':
+    if sys.platform == 'win32':
         # driver = webdriver.Chrome()
         option = webdriver.ChromeOptions()
         # option.add_argument('--headless')
@@ -67,7 +62,7 @@ def login_web():
         driver = webdriver.Chrome('/home/ubuntu/Documents/chromedriver', options=options)
     driver.maximize_window()
     driver.get(datas['url'])
-    login(driver).login_system(datas['account'],datas['pwd'])
+    login(driver).login_system(datas['account'], datas['pwd'])
     yield driver
     driver.quit()
 
@@ -124,5 +119,3 @@ def pytest_html_results_table_header(cells):
 def pytest_html_results_table_row(report, cells):
     cells.insert(1, html.td(report.description))
     cells.pop(-1)  # 删除link列
-
-

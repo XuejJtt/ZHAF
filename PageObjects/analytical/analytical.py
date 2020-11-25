@@ -25,9 +25,10 @@ class Analytical(BasePage):
     故障中 = '(//div[@class="number"])[4]'
     包含子场所 = '//span[text()="包含子场所"]/preceding-sibling::span'
     不包含子场所 = '//span[text()="不包含子场所"]/preceding-sibling::span'
-    子标签 = '(//span[@class="custom-tree-node"])[5]'
-    子标签名 = '(//span[@class="custom-tree-node"])[5]//span[1]'
-    子标签数量 = '(//span[@class="custom-tree-node"])[5]//span[2]'
+    # 子标签数需要根据页面标签的变化进行调整
+    子标签 = '(//span[@class="custom-tree-node"])[7]'
+    子标签名 = '(//span[@class="custom-tree-node"])[7]//span[1]'
+    子标签数量 = '(//span[@class="custom-tree-node"])[7]//span[2]'
     请输入场所名称 = '//input[@placeholder="请输入场所名称"]'
     请输入设备名称 = '//input[@placeholder="请输入设备名称"]'
     列表 = '//div[@class="el-table__body-wrapper is-scrolling-none"]'
@@ -36,12 +37,31 @@ class Analytical(BasePage):
     重置按钮 = '//span[text()="重置"]'
     设备类型 = '(//input[@placeholder="请选择"])[1]'
     任务状态 = '(//input[@placeholder="请选择"])[2]'
+    下拉列表 = '(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]'
 
+    #选择设备类型
     def select_type(self,item):
-        if item =='':
-            pass
 
-
+        self.click(self.设备类型)
+        if item =='智能抓拍机':
+            # self.click('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[2]')
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[2]')
+        elif item =='视频流相机':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[3]')
+        elif item =='GB28181':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[4]')
+        elif item =='1400视图库':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[5]')
+    #选择任务状态
     def select_state(self,state):
-        if state =='':
-            pass
+        self.click(self.任务状态)
+        if state =='已停止':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[2]')
+        elif state =='运行中':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[3]')
+        elif state == '启动中':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[4]')
+        elif state == '停止中':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[5]')
+        elif state == '故障中':
+            self.excute_js('(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]/li[6]')

@@ -154,6 +154,19 @@ class BasePage:
             self.save_picture("点击失败")
             raise e
 
+    # js操作
+    def excute_js(self,locator,action ='click()',by=By.XPATH, wait_times=40, type="visible", scroll=False):
+        P_log.info("=====执行操作js事件======")
+        ele = self.find_element(locator, by, wait_times, type)
+        if scroll is True:
+            self.scroll_intoView(ele)
+        try:
+            self.driver.execute_script("arguments[0].click();",ele)
+        except Exception as e:
+            P_log.error("执行操作js操作失败。")
+            self.save_picture("执行操作js失败")
+            raise e
+
     # 元素的点击操作
     def double_click(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         P_log.info("=====执行双击事件======")
@@ -268,6 +281,8 @@ class BasePage:
         else:
             alert.dismiss()
         return message
+
+    #
 
     # 截图函数
     def save_picture(self, doc, flag=True):
