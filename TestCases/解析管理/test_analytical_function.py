@@ -218,3 +218,90 @@ class Test_analytical:
             P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
+
+    @pytest.mark.smoke
+    def test_batch_start(self,login_web):
+        self.test_mix_select.__func__.__doc__ = E.batch_start['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.batch_start['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.batch_start['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head,body)
+            if list_1[3][0] == '已停止':
+                P_log.info('当前设备状态为已停止开始批量启动测试')
+                Analytical(login_web).click(Analytical.筛选框)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.批量启动)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.启动)
+                time.sleep(2)
+                Analytical(login_web).click(Analytical.确定)
+                # 等待相机启动完成
+                time.sleep(8)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_2 = Analytical(login_web).process_text(head,body_1)
+                assert list_2[3][0] == '运行中'
+            else:
+                P_log.info('当前设备状态不是已停止，无法继续执行用例')
+                raise Exception('当前设备状态无法继续执行用例')
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.batch_start['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.batch_start['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_batch_stop(self,login_web):
+        self.test_batch_stop.__func__.__doc__ = E.batch_stop['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.batch_start['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.batch_stop['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            if list_1[3][0] == '运行中':
+                P_log.info('当前设备状态为运行中开始批量启动测试')
+                Analytical(login_web).click(Analytical.筛选框)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.批量停止)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.启动)
+                time.sleep(2)
+                Analytical(login_web).click(Analytical.确定)
+                # 等待相机启动完成
+                time.sleep(8)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_2 = Analytical(login_web).process_text(head, body_1)
+                assert list_2[3][0] == '运行中'
+            else:
+                P_log.info('当前设备状态不是运行中，无法继续执行用例')
+                raise Exception('当前设备状态无法继续执行用例')
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.batch_stop['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.batch_stop['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+
+    @pytest.mark.smoke
+    def test_batch_modification(self,login_web):
+        self.test_batch_stop.__func__.__doc__ = E.batch_modification['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.batch_modification['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            pass
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.batch_modification['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.batch_modification['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e

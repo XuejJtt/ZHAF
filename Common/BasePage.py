@@ -70,6 +70,7 @@ class BasePage:
             P_log.error("元素定位表达式：{0}  不正确，请修正".format(locator))
 
         # 模拟鼠标悬停操作
+
     def move_mouse(self, locator, by=By.CSS_SELECTOR, wait_times=40, type="visible"):
         if type == "visible":
             P_log.info("开始等待元素在当前页面可见。")
@@ -155,13 +156,13 @@ class BasePage:
             raise e
 
     # js操作
-    def excute_js(self,locator,action ='click()',by=By.XPATH, wait_times=40, type="visible", scroll=False):
+    def excute_js(self, locator, action='click()', by=By.XPATH, wait_times=40, type="visible", scroll=False):
         P_log.info("=====执行操作js事件======")
         ele = self.find_element(locator, by, wait_times, type)
         if scroll is True:
             self.scroll_intoView(ele)
         try:
-            self.driver.execute_script("arguments[0].click();",ele)
+            self.driver.execute_script("arguments[0].click();", ele)
         except Exception as e:
             P_log.error("执行操作js操作失败。")
             self.save_picture("执行操作js失败")
@@ -181,9 +182,9 @@ class BasePage:
             raise e
 
     # 元素组点击操作
-    def clicks(self, locator, by=By.XPATH, wait_times=40, type="visible", index=0,scroll=False):
+    def clicks(self, locator, by=By.XPATH, wait_times=40, type="visible", index=0, scroll=False):
         P_log.info("=====执行点击事件======")
-        eles = self.find_elements(locator, by,wait_times, type)[index]
+        eles = self.find_elements(locator, by, wait_times, type)[index]
         if scroll is True:
             self.scroll_intoView(eles)
         try:
@@ -192,6 +193,7 @@ class BasePage:
             P_log.error("元素点击失败")
             self.save_picture("点击失败")
             raise e
+
     # 输入文字
     def input_text(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         '''
@@ -214,8 +216,8 @@ class BasePage:
             self.save_picture("输入文本失败")
             raise e
 
-    #多元素选择输入
-    def input_text_m(self,locator,text,by=By.XPATH,wait_times=40,type="visible",scroll=False,index=0):
+    # 多元素选择输入
+    def input_text_m(self, locator, text, by=By.XPATH, wait_times=40, type="visible", scroll=False, index=0):
         P_log.info("=====执行输入操作======\n输入的数据为：{0}".format(text))
         ele = self.find_elements(locator, by, wait_times, type)[index]
         if scroll is True:
@@ -226,7 +228,6 @@ class BasePage:
             P_log.error("输入操作失败。")
             self.save_picture("输入文本失败")
             raise e
-
 
     # 获取对象的文字
     def get_text(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
@@ -241,8 +242,8 @@ class BasePage:
             self.save_picture("获取元素文本信息失败")
             raise e
 
-    #多元素获取对象的文字
-    def get_text_m(self,locator,by=By.XPATH, wait_times=40, type="visible",scroll=False,index=0):
+    # 多元素获取对象的文字
+    def get_text_m(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False, index=0):
         P_log.info("=====获取元素的文本内容======")
         ele = self.find_elements(locator, by, wait_times, type)[index]
         if scroll is True:
@@ -267,8 +268,6 @@ class BasePage:
             P_log.error("获取属性值失败：")
             self.save_picture("取元素属性失败")
             raise e
-
-
 
     # 处理alert弹出框
     def alert_handler(self, action="accept"):
@@ -315,35 +314,27 @@ class BasePage:
     def switch_iframe(self):
         pass
 
-    #页面刷新
+    # 页面刷新
     def refresh(self):
         return self.driver.refresh()
 
-
-    #解析页面数据，返回一个列表
-    def process_text(self,head,body,separator_head=' ',separator_body='\n'):
+    # 解析页面数据，返回一个列表
+    def process_text(self, head, body, separator_head=' ', separator_body='\n'):
         """
         @param head: 标题头
         @param body: 正文部分
         @param separator_head: 标题切割符号
         @param separator_body: 正文切割符号
-        @return:
+        @return: 返回解析完成的复合列表
         """
         final_list = []
         head_list = head.split(separator_head)
         body_list = body.split(separator_body)
         len_head = len(head_list)
         len_body = len(body_list)
-        for i in range(0,len_head):
+        for i in range(0, len_head):
             temporary_list = []
-            for j in range(i,len_body,len_head):
+            for j in range(i, len_body, len_head):
                 temporary_list.append(body_list[j])
             final_list.append(temporary_list)
         return final_list
-
-
-
-
-
-
-

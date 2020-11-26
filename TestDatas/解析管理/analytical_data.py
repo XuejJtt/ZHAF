@@ -31,6 +31,6 @@ task_select = [{'name':'任务状态筛选_已停止','dec':'验证任务状态�
 
 batch_start = {'name':'批量启动','dec':'验证批量启动功能是否正常','device':'ftp-face-test'}
 
-batch_stop = {'name':'批量停止','dec':'验证批量停止功能是否正常','device':'ftp-face-test'}
+batch_stop =  {'name':'批量停止','dec':'验证批量停止功能是否正常','device':'ftp-face-test'}
 
 batch_modification = {'name':'批量修改','dec':'验证批量修改功能是否正常','device':'ftp-face-test'}

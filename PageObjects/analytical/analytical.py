@@ -38,6 +38,13 @@ class Analytical(BasePage):
     设备类型 = '(//input[@placeholder="请选择"])[1]'
     任务状态 = '(//input[@placeholder="请选择"])[2]'
     下拉列表 = '(//ul[@class="el-scrollbar__view el-select-dropdown__list"])[3]'
+    批量启动 = '//span[text()="批量启动"]/..'
+    批量停止 = '//span[text()="批量停止"]/..'
+    批量修改 = '//span[text()="批量修改"]/..'
+    筛选框 = '(//span[@class="el-checkbox__inner"])[2]'
+    启动 = '//span[text()="启动"]/..'
+    确定 = '//button[@class="el-button el-button--default el-button--small el-button--primary "]'
+
 
     #选择设备类型
     def select_type(self,item):

@@ -228,7 +228,7 @@ class First_Page(BasePage):
             self.click(self.analytical)
 
     # 选择二级菜单
-    def select_s_item(self, loc, loc_s):
+    def select_s_item(self, loc: str, loc_s: str):
         P_log.info('开始进入{0}菜单下的{1}子菜单'.format(loc, loc_s))
         if loc == '资源图库':
             self.move_mouse(self.gallery)
@@ -251,7 +251,7 @@ class First_Page(BasePage):
             elif loc_s == '设备档案':
                 self.click(self.device)
         elif loc == '综合布控':
-            self.move_mouse(self.deployment)
+            self.move_mouse(self.deployment,by=By.XPATH)
             if loc_s == '底库管理':
                 self.click(self.library)
             elif loc_s == '布控管理':
