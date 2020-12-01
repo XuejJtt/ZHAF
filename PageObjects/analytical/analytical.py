@@ -44,6 +44,11 @@ class Analytical(BasePage):
     筛选框 = '(//span[@class="el-checkbox__inner"])[2]'
     启动 = '//span[text()="启动"]/..'
     确定 = '//button[@class="el-button el-button--default el-button--small el-button--primary "]'
+    人脸 = '(//span[@class="el-checkbox__inner"])[4]'
+    人体 = '(//span[@class="el-checkbox__inner"])[5]'
+    机动车 = '(//span[@class="el-checkbox__inner"])[6]'
+    非机动车 = '(//span[@class="el-checkbox__inner"])[7]'
+    批量修改确定 = '(//button[@class="el-button el-button--primary"])[1]'
 
 
     #选择设备类型

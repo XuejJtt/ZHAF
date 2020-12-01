@@ -36,7 +36,9 @@ class Test_analytical:
             已停止 = Analytical(login_web).get_text(Analytical.已停止)
             故障中 = Analytical(login_web).get_text(Analytical.故障中)
             # 判断退出全屏按钮出现在当前的页面中
+            P_log.info("*******开始进行结果校验*********")
             assert int(任务总数) == int(运行中) + int(已停止) + int(故障中)
+            R_log.info("{0}用例执行成功".format(E.sum_devices['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.sum_devices['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.sum_devices['name'], e))
@@ -55,7 +57,9 @@ class Test_analytical:
             Analytical(login_web).click(Analytical.不包含子场所)
             time.sleep(3)
             任务总数_切换后 = Analytical(login_web).get_text(Analytical.任务总数)
+            P_log.info("*******开始进行结果校验*********")
             assert int(任务总数_切换前) != int(任务总数_切换后)
+            R_log.info("{0}用例执行成功".format(E.change_place['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.change_place['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.change_place['name'], e))
@@ -76,11 +80,13 @@ class Test_analytical:
             数量 = Analytical(login_web).get_text(Analytical.子标签数量)
             实际数量 = Analytical(login_web).get_text(Analytical.任务总数)
             #取到的数量有多余的括号
+            P_log.info("*******开始进行结果校验*********")
             assert 名称 == E.select_place['place'] and 实际数量 in 数量
+            R_log.info("{0}用例执行成功".format(E.select_place['name']))
 
         except Exception as e:
-            R_log.info("{0}用例执行失败".format(E.change_place['name']))
-            P_log.error("{0}用例失败原因:{1}".format(E.change_place['name'], e))
+            R_log.info("{0}用例执行失败".format(E.select_place['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.select_place['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
 
@@ -102,7 +108,9 @@ class Test_analytical:
             # 得到处理完的页面数据，结构式大列表嵌套
             list_1 = Analytical(login_web).process_text(head, body)
             #判断查询到的设备名称是否是查询输入的设备名称
+            P_log.info("*******开始进行结果校验*********")
             assert E.query_device['device'] == list_1[0][0]
+            R_log.info("{0}用例执行成功".format(E.query_device['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.query_device['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.query_device['name'], e))
@@ -129,7 +137,9 @@ class Test_analytical:
             list = Analytical(login_web).process_text(head,body)
             list_1 = Analytical(login_web).process_text(head,body_1)
             #判断标准执行前后的解析列表长度不相等
+            P_log.info("*******开始进行结果校验*********")
             assert list != list_1
+            R_log.info("{0}用例执行成功".format(E.query_reset['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.query_reset['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.query_reset['name'], e))
@@ -139,7 +149,7 @@ class Test_analytical:
     @pytest.mark.smoke
     def test_mix_select(self,login_web):
         self.test_mix_select.__func__.__doc__ = E.mix_query['dec']
-        P_log.info("*******开始执行{0}测试用例******".format(E.query_reset['name']))
+        P_log.info("*******开始执行{0}测试用例******".format(E.mix_query['name']))
         First_Page(login_web).select_item('解析管理')
         time.sleep(1)
         try:
@@ -158,10 +168,12 @@ class Test_analytical:
             body = Analytical(login_web).get_text(Analytical.列表)
             list_1 = Analytical(login_web).process_text(head, body)
             #检验筛选过后的实际状态与预期的状态一致
+            P_log.info("*******开始进行结果校验*********")
             assert list_1[2][0] == E.mix_query['type'] and list_1[3][0] == E.mix_query['state']
+            R_log.info("{0}用例执行成功".format(E.mix_query['name']))
         except Exception as e:
-            R_log.info("{0}用例执行失败".format(E.query_reset['name']))
-            P_log.error("{0}用例失败原因:{1}".format(E.query_reset['name'], e))
+            R_log.info("{0}用例执行失败".format(E.mix_query['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.mix_query['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
 
@@ -185,7 +197,10 @@ class Test_analytical:
             if list_1[0][0] == '暂无数据':
                 P_log.info("查询结果为空")
             else:
+                P_log.info("*******开始进行结果校验*********")
                 assert list_1[2][0] == data['type']
+                R_log.info("{0}用例执行成功".format(data['name']))
+
 
         except Exception as e:
             R_log.info("{0}用例执行失败".format(data['name']))
@@ -212,7 +227,9 @@ class Test_analytical:
             if list_1[0][0] == '暂无数据':
                 P_log.info("查询结果为空")
             else:
+                P_log.info("*******开始进行结果校验*********")
                 assert list_1[3][0] == data['state']
+                R_log.info("{0}用例执行成功".format(data['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(data['name']))
             P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
@@ -245,7 +262,9 @@ class Test_analytical:
                 time.sleep(8)
                 body_1 = Analytical(login_web).get_text(Analytical.列表)
                 list_2 = Analytical(login_web).process_text(head,body_1)
+                P_log.info("*******开始进行结果校验*********")
                 assert list_2[3][0] == '运行中'
+                R_log.info("{0}用例执行成功".format(E.batch_start['name']))
             else:
                 P_log.info('当前设备状态不是已停止，无法继续执行用例')
                 raise Exception('当前设备状态无法继续执行用例')
@@ -281,7 +300,9 @@ class Test_analytical:
                 time.sleep(8)
                 body_1 = Analytical(login_web).get_text(Analytical.列表)
                 list_2 = Analytical(login_web).process_text(head, body_1)
+                P_log.info("*******开始进行结果校验*********")
                 assert list_2[3][0] == '运行中'
+                R_log.info("{0}用例执行成功".format(E.batch_stop['name']))
             else:
                 P_log.info('当前设备状态不是运行中，无法继续执行用例')
                 raise Exception('当前设备状态无法继续执行用例')
@@ -299,7 +320,54 @@ class Test_analytical:
         First_Page(login_web).select_item('解析管理')
         time.sleep(1)
         try:
-            pass
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.batch_stop['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            str = list_1[1][0]
+            # 切割字符串返回当前
+            t_list = str.split('/')
+            # 根据最大长度4来判断，4中解析原理都有则选取前2个，不是4个都有则全选
+            if len(t_list) == 4:
+                P_log.info('当前设备解析规则为全选')
+                Analytical(login_web).click(Analytical.筛选框)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.批量修改)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.人脸)
+                Analytical(login_web).click(Analytical.人体)
+                Analytical(login_web).click(Analytical.批量修改确定)
+                time.sleep(5)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head, body_1)
+                str = list_1[1][0]
+                # 切割字符串返回当前
+                t_list = str.split('/')
+                P_log.info("*******开始进行结果校验*********")
+                assert len(t_list) == 2
+                R_log.info("{0}用例执行成功".format(E.batch_modification['name']))
+            else:
+                P_log.info('当前设备解析规则为非全选')
+                Analytical(login_web).click(Analytical.筛选框)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.批量修改)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.人脸)
+                Analytical(login_web).click(Analytical.人体)
+                Analytical(login_web).click(Analytical.机动车)
+                Analytical(login_web).click(Analytical.非机动车)
+                Analytical(login_web).click(Analytical.批量修改确定)
+                time.sleep(5)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head, body_1)
+                str = list_1[1][0]
+                # 切割字符串返回当前
+                t_list = str.split('/')
+                P_log.info("*******开始进行结果校验*********")
+                assert len(t_list) == 4
+                R_log.info("{0}用例执行成功".format(E.batch_modification['name']))
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.batch_modification['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.batch_modification['name'], e))

@@ -155,8 +155,8 @@ class BasePage:
             self.save_picture("点击失败")
             raise e
 
-    # js操作
-    def excute_js(self, locator, action='click()', by=By.XPATH, wait_times=40, type="visible", scroll=False):
+    # js操作点击元素
+    def excute_js(self, locator, by=By.XPATH, wait_times=40, type="visible", scroll=False):
         P_log.info("=====执行操作js事件======")
         ele = self.find_element(locator, by, wait_times, type)
         if scroll is True:
