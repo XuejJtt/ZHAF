@@ -34,3 +34,8 @@ batch_start = {'name':'批量启动','dec':'验证批量启动功能是否正常
 batch_stop =  {'name':'批量停止','dec':'验证批量停止功能是否正常','device':'ftp-face-test'}
 
 batch_modification = {'name':'批量修改','dec':'验证批量修改功能是否正常','device':'ftp-face-test'}
+
+button_check = {'name':'查看','dec':'验证查看功能是否正常','device':'ftp-face-test'}
+button_start = {'name':'启动','dec':'验证启动功能是否正常','device':'ftp-face-test'}
+button_stop = {'name':'停止','dec':'验证停止功能是否正常','device':'ftp-face-test'}
+button_modification = {'name':'修改','dec':'验证修改功能是否正常','device':'ftp-face-test'}

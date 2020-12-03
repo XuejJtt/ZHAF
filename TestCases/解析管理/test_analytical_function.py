@@ -11,10 +11,10 @@ from PageObjects.index.first_page import First_Page
 from PageObjects.edgeIntelligence.edgeIntelligence import *
 from PageObjects.analytical.analytical import *
 from Common.log import Log
-from Common import dir_config
+# from Common import dir_config
 from TestDatas.解析管理 import analytical_data as E
-from selenium.webdriver.support import expected_conditions as EC
-from Common.Compare import GraphicalLocator as G
+# from selenium.webdriver.support import expected_conditions as EC
+# from Common.Compare import GraphicalLocator as G
 
 # 定义resultlog和processlog
 P_log = Log(processlog_dir)
@@ -371,5 +371,149 @@ class Test_analytical:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.batch_modification['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.batch_modification['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_check(self,login_web):
+        self.test_check.__func__.__doc__ = E.button_check['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.button_check['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.button_check['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            Analytical(login_web).click(Analytical.查看)
+            time.sleep(3)
+            assert Analytical(login_web).get_text(Analytical.设备名称) == E.button_check['device']
+            R_log.info("{0}用例执行成功".format(E.button_check['name']))
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.button_check['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.button_check['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_start(self,login_web):
+        self.test_start.__func__.__doc__ = E.button_start['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.button_start['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.button_start['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            if "启动" in list_1[4][0]:
+                Analytical(login_web).click(Analytical.启动按钮)
+                time.sleep(4)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head,body_1)
+                assert "停止" in list_1[4][0]
+                R_log.info("{0}用例执行成功".format(E.button_start['name']))
+            else:
+                P_log.info('当前设备状态不是运行中，无法继续执行用例')
+                raise Exception('当前设备状态无法继续执行用例')
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.button_start['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.button_start['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_stop(self,login_web):
+        self.test_stop.__func__.__doc__ = E.button_stop['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.button_stop['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.button_stop['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            # 判断当前设备的状态
+            if "停止" in list_1[4][0]:
+                Analytical(login_web).click(Analytical.停止按钮)
+                time.sleep(1)
+                Analytical(login_web).click(Analytical.确定)
+                time.sleep(4)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head, body_1)
+                assert "启动" in list_1[4][0]
+                R_log.info("{0}用例执行成功".format(E.button_stop['name']))
+            else:
+                P_log.info('当前设备状态不是运行中，无法继续执行用例')
+                raise Exception('当前设备状态无法继续执行用例')
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.button_stop['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.button_stop['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.smoke
+    def test_modification(self,login_web):
+        self.test_modification.__func__.__doc__ = E.button_modification['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.button_modification['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            Analytical(login_web).input_text(Analytical.请输入设备名称, E.button_modification['device'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.查询按钮)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            str = list_1[1][0]
+            # 切割字符串返回当前
+            t_list = str.split('/')
+            if len(t_list) == 4:
+                P_log.info('当前设备解析规则为全选')
+                Analytical(login_web).click(Analytical.修改)
+                time.sleep(2)
+                Analytical(login_web).click(Analytical.人脸)
+                Analytical(login_web).click(Analytical.人体)
+                Analytical(login_web).click(Analytical.批量修改确定)
+                time.sleep(5)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head, body_1)
+                str = list_1[1][0]
+                # 切割字符串返回当前
+                t_list = str.split('/')
+                P_log.info("*******开始进行结果校验*********")
+                assert len(t_list) == 2
+                R_log.info("{0}用例执行成功".format(E.button_modification['name']))
+
+            else:
+                P_log.info('当前设备解析规则为非全选')
+                Analytical(login_web).click(Analytical.修改)
+                time.sleep(2)
+                Analytical(login_web).click(Analytical.人脸)
+                Analytical(login_web).click(Analytical.人体)
+                Analytical(login_web).click(Analytical.机动车)
+                Analytical(login_web).click(Analytical.非机动车)
+                Analytical(login_web).click(Analytical.批量修改确定)
+                time.sleep(5)
+                body_1 = Analytical(login_web).get_text(Analytical.列表)
+                list_1 = Analytical(login_web).process_text(head, body_1)
+                str = list_1[1][0]
+                # 切割字符串返回当前
+                t_list = str.split('/')
+                P_log.info("*******开始进行结果校验*********")
+                assert len(t_list) == 4
+                R_log.info("{0}用例执行成功".format(E.button_modification['name']))
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.button_modification['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.button_modification['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e

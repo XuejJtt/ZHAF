@@ -49,7 +49,11 @@ class Analytical(BasePage):
     机动车 = '(//span[@class="el-checkbox__inner"])[6]'
     非机动车 = '(//span[@class="el-checkbox__inner"])[7]'
     批量修改确定 = '(//button[@class="el-button el-button--primary"])[1]'
-
+    查看 = '(//button[@class="el-button el-button--text el-button--small"])[1]'
+    启动按钮 = '(//button[@class="el-button el-button--text el-button--small"])[2]'
+    修改 = '(//button[@class="el-button el-button--text el-button--small"])[3]'
+    停止按钮 = '//button[@class="el-button error el-button--text el-button--small"]'
+    设备名称 = '(//h3[@class="title"])[1]'
 
     #选择设备类型
     def select_type(self,item):
