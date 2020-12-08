@@ -119,3 +119,36 @@ class Test_edgeInteligence:
             P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
             EdgeIntelligence(login_web).save_picture('用例异常截图')
             raise e
+
+    @pytest.mark.smoke
+    def test_all_type(self,login_web):
+        self.test_all_type.__func__.__doc__ = E.all_type['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.all_type['name']))
+        try:
+            First_Page(login_web).select_item("边缘智能")
+            time.sleep(2)
+            EdgeIntelligence(login_web).click(EdgeIntelligence.资源按钮)
+            time.sleep(1)
+            EdgeIntelligence(login_web).click(EdgeIntelligence.全部类型)
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.all_type['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.all_type['name'], e))
+            EdgeIntelligence(login_web).save_picture('用例异常截图')
+            raise e
+
+
+    @pytest.mark.smoke
+    def test_all_place(self,login_web):
+        self.test_all_place.__func__.__doc__ = E.all_place['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(E.all_place['name']))
+        try:
+            First_Page(login_web).select_item("边缘智能")
+            time.sleep(2)
+            EdgeIntelligence(login_web).click(EdgeIntelligence.资源按钮)
+            time.sleep(1)
+            EdgeIntelligence(login_web).click(EdgeIntelligence.全部场所)
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(E.all_place['name']))
+            P_log.error("{0}用例失败原因:{1}".format(E.all_place['name'], e))
+            EdgeIntelligence(login_web).save_picture('用例异常截图')
+            raise e

@@ -32,3 +32,5 @@ class EdgeIntelligence(BasePage):
     视图库相机 = '//div[contains(text(),"视图库")]'
     在线 = '(//button)[1]'
     离线 = '(//button)[2]'
+    全部场所 = '(//div[@class="select-tab-item"])[1]'
+    全部类型 = '(//div[@class="select-tab-item"])[2]'

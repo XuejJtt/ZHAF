@@ -22,4 +22,6 @@ resource_select = [{'name':'资源_视频流相机','dec':'视屏流相机筛选
                    {'name':'资源_在线','dec':'在线状态筛选','object':'在线','pic':pic_dir+'\\byzn\\5.png'},
                    {'name':'资源_离线','dec':'离线状态筛选','object':'离线','pic':pic_dir+'\\byzn\\6.png'}]
 
+all_type = {'name':'全部类型','dec':'验证全部类型功能按钮正常生效'}
 
+all_place = {'name':'全部场所','dec':'验证全部场所功能按钮生效'}
