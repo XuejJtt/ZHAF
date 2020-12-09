@@ -90,7 +90,6 @@ class Test_analytical:
             Analytical(login_web).save_picture('用例异常截图')
             raise e
 
-
     @pytest.mark.smoke
     def test_query_device(self,login_web):
         self.test_query_device.__func__.__doc__ = E.query_device['dec']
@@ -116,7 +115,6 @@ class Test_analytical:
             P_log.error("{0}用例失败原因:{1}".format(E.query_device['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
-
 
     @pytest.mark.smoke
     def test_query_reset(self,login_web):
@@ -177,7 +175,6 @@ class Test_analytical:
             Analytical(login_web).save_picture('用例异常截图')
             raise e
 
-
     @pytest.mark.parametrize('data', E.devices_select)
     def test_device_type_select(self,login_web,data):
         self.test_device_type_select.__func__.__doc__ = data['dec']
@@ -200,6 +197,7 @@ class Test_analytical:
                 P_log.info("*******开始进行结果校验*********")
                 assert list_1[2][0] == data['type']
                 R_log.info("{0}用例执行成功".format(data['name']))
+
 
 
         except Exception as e:
@@ -311,7 +309,6 @@ class Test_analytical:
             P_log.error("{0}用例失败原因:{1}".format(E.batch_stop['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
-
 
     @pytest.mark.smoke
     def test_batch_modification(self,login_web):
@@ -515,5 +512,39 @@ class Test_analytical:
         except Exception as e:
             R_log.info("{0}用例执行失败".format(E.button_modification['name']))
             P_log.error("{0}用例失败原因:{1}".format(E.button_modification['name'], e))
+            Analytical(login_web).save_picture('用例异常截图')
+            raise e
+
+    @pytest.mark.parametrize('data', E.type_select)
+    def test_type(self,login_web,data):
+        self.test_modification.__func__.__doc__ = data['dec']
+        P_log.info("*******开始执行{0}测试用例******".format(data['name']))
+        First_Page(login_web).select_item('解析管理')
+        time.sleep(1)
+        try:
+            head = Analytical(login_web).get_text(Analytical.列表标题)
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.设备类型)
+            time.sleep(2)
+            Analytical(login_web).select_type(data['type'])
+            time.sleep(2)
+            Analytical(login_web).click(Analytical.任务状态)
+            time.sleep(2)
+            Analytical(login_web).select_state(data['state'])
+            time.sleep(1)
+            Analytical(login_web).click(Analytical.查询按钮)
+            time.sleep(1)
+            body = Analytical(login_web).get_text(Analytical.列表)
+            list_1 = Analytical(login_web).process_text(head, body)
+            if list_1[0][0] == '暂无数据':
+                P_log.info("查询结果为空")
+            else:
+                P_log.info("*******开始进行结果校验*********")
+                assert list_1[2][0] == data['type'] and list_1[3][0] == data['state']
+                R_log.info("{0}用例执行成功".format(data['name']))
+
+        except Exception as e:
+            R_log.info("{0}用例执行失败".format(data['name']))
+            P_log.error("{0}用例失败原因:{1}".format(data['name'], e))
             Analytical(login_web).save_picture('用例异常截图')
             raise e
