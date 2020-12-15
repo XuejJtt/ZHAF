@@ -11,10 +11,8 @@ from PageObjects.index.first_page import First_Page
 from PageObjects.edgeIntelligence.edgeIntelligence import *
 from PageObjects.analytical.analytical import *
 from Common.log import Log
-# from Common import dir_config
 from TestDatas.解析管理 import analytical_data as E
-# from selenium.webdriver.support import expected_conditions as EC
-# from Common.Compare import GraphicalLocator as G
+
 
 # 定义resultlog和processlog
 P_log = Log(processlog_dir)

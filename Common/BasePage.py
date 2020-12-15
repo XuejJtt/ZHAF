@@ -284,7 +284,7 @@ class BasePage:
     #
 
     # 截图函数
-    def save_picture(self, doc, flag=True):
+    def save_picture(self, doc):
         '''
         :param doc: 截图的名称
         :return: pic_path
